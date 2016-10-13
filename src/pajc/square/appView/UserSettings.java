@@ -26,7 +26,6 @@ public class UserSettings extends JPanel {
 	private JButton btnDeleteAccount;
 	private JButton btnSaveChanges;
 
-	// TODO Layout
 	public UserSettings(JFrame container, User user) {
 		setSize(container.getWidth(), container.getHeight());
 		setLayout(null);
@@ -97,6 +96,5 @@ public class UserSettings extends JPanel {
 		btnDeleteAccount.setFont(new Font("Droid Sans", Font.PLAIN, 13));
 		btnDeleteAccount.setBounds(288, 279, 187, 25);
 		add(btnDeleteAccount);
-
 	}
 }

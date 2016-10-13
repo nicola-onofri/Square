@@ -50,6 +50,7 @@ public class UserProfile extends JPanel {
 		setLayout(null);
 		setBounds(bounds);
 		setBackground(ColorPalette.white_background);
+		System.out.println(container.getSize());
 
 
 		changes = new PropertyChangeSupport(this);

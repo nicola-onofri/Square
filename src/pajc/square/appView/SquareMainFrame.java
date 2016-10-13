@@ -55,7 +55,7 @@ public class SquareMainFrame {
 				new ImageIcon(Vars.post_path + "kylie_4.png"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
 				new ArrayList<>());
 
-		User user = new User("wixxxkhalifa", "wizK@joint.com", "jolla", "Wiz Khalifa",
+		User user = new User("wizkhalifa", "wizK@joint.com", "jolla", "Wiz Khalifa",
 				"Sebastian's Dad; Mr Personality; Party Shirt Ambassador", new ImageIcon(Vars.post_path + "wiz_2.png"),
 				new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
 
@@ -65,7 +65,7 @@ public class SquareMainFrame {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// App Configuration
-		Config config = new Config(false);
+		Config config = new Config(true);
 
 		// Appearance Settings
 		FontSettings.setUIFont(new Font("Droid Sans", Font.PLAIN, 13));

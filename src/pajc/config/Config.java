@@ -1,7 +1,6 @@
 package pajc.config;
 
 public class Config {
-
 	boolean production;
 	public static String db_port;
 	public static String db_name;

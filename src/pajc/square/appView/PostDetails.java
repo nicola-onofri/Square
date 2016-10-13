@@ -31,8 +31,8 @@ public class PostDetails extends JPanel implements PropertyChangeListener {
 	private Boolean isFollowed;
 	private JScrollPane scrollPane;
 	private JButton btnFollow;
-	private JLabel lblHeart;
 	private JLabel lblLikes;
+	private JLabel lblHeart;
 	private JPanel pnlComments;
 	private JLabel lblCaption;
 	private JLabel lblImage;
