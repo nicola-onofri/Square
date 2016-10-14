@@ -39,6 +39,7 @@ import pajc.square.model.User;
 
 public class PersistentNavigationBar extends JComponent implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
+	private static final int displayed_items_searchBar = 5;
 	private JButton focusGrabber;
 	private JLabel lblSquarelogo;
 	private JLabel lblNotifications;
@@ -56,6 +57,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 	private JPopupMenu popupMenuLikes;
 	private JTextField txtSearchUser;
 	private UserProfile userView;
+	private SinglePostView singlePostView;
 
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
@@ -95,14 +97,37 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		add(lblProfile);
 
 		// Go to loggedUser's ProfileView
+		// lblProfile.addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mouseClicked(MouseEvent e) {
+		// if (Arrays.asList(getComponents()).contains(userView) && userView !=
+		// null) {
+		// userView.setVisible(false);
+		// remove(userView);
+		// userView = new UserProfile(container, contentPane.getBounds(),
+		// loggedUser, loggedUser);
+		// add(userView);
+		// }
+		// }
+		// });
+
 		lblProfile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (Arrays.asList(getComponents()).contains(userView) && userView != null) {
-					userView.setVisible(false);
-					remove(userView);
-					userView = new UserProfile(container, contentPane.getBounds(), loggedUser, loggedUser);
-					add(userView);
+				for (int i = 0; i < getComponents().length; i++) {
+					System.out.println(getComponents()[i].getClass());
+				}
+				
+				if (Arrays.asList(getComponents()).stream()
+						.anyMatch(c -> (c instanceof UserProfile || c instanceof SinglePostView) && c != null)) {
+					Arrays.asList(getComponents()).stream()
+							.filter(c -> (c instanceof UserProfile || c instanceof SinglePostView) && c != null)
+							.forEach(c -> {
+								c.setVisible(false);
+								remove(c);
+								c = new UserProfile(container, contentPane.getBounds(), loggedUser, loggedUser);
+								add(c);
+							});
 				}
 			}
 		});
@@ -148,12 +173,35 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
 		add(lblExplore);
 
+		// Go to loggedUser's ProfileView
+		lblExplore.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (Arrays.asList(getComponents()).stream()
+						.anyMatch(c -> (c instanceof UserProfile || c instanceof SinglePostView) && c != null)) {
+					Arrays.asList(getComponents()).stream()
+							.filter(c -> (c instanceof UserProfile || c instanceof SinglePostView) && c != null)
+							.forEach(c -> {
+								c.setVisible(false);
+								remove(c);
+								c = new SinglePostView(container,
+										new Post(loggedUser, "TEST", new GregorianCalendar().getTime(),
+												new ArrayList<>(), new ArrayList<>(),
+												new ImageIcon(Vars.avatar_path + "kendall.png")),
+										loggedUser);
+								add(c);
+							});
+				}
+			}
+		});
+
 		// Notifications - Inbox, New Follower
 		lblNotifications = new JLabel();
 		lblNotifications.setToolTipText(Vars.tooltip_notifications);
 		lblNotifications.setIcon(new ImageIcon(Vars.icon_path + "inbox_small.png"));
 		lblNotifications.setBounds(lblExplore.getX() - Layout.component_margin * 2 - Layout.tab_icon_size,
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
+
 		add(lblNotifications);
 
 		// Search Users
@@ -179,7 +227,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 					// Just testing functionalities, still need to get datas
 					// form DB
 					// Max results -> 7, the 8th will give you a bad surprise
-					for (int i = 0; i < 5; i++) {
+					for (int i = 0; i < displayed_items_searchBar; i++) {
 						JComponent itemComponent = createSearchResultItem(loggedUser, txtSearchUser, i);
 
 						itemComponent.addMouseListener(new MouseAdapter() {
@@ -248,6 +296,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 				}
 			}
 		});
+
 		add(txtSearchUser);
 		DataValidation.deleteTextOnFocusGained(txtSearchUser, Vars.placeholder_search);
 
@@ -274,7 +323,9 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		lblNewPost = new JLabel();
 		lblNewPost.setIcon(new ImageIcon(Vars.icon_path + "camera_small.png"));
 		lblNewPost.setSize(Layout.tab_icon_size, Layout.tab_icon_size);
-		lblNewPost.setLocation(getWidth() / 2 - lblNewPost.getWidth() / 2, menuBarY + Layout.component_margin);
+		lblNewPost.setLocation(
+
+				getWidth() / 2 - lblNewPost.getWidth() / 2, menuBarY + Layout.component_margin);
 		add(lblNewPost);
 
 		lblNewPost.addMouseListener(new MouseAdapter() {

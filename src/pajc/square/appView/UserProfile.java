@@ -52,7 +52,6 @@ public class UserProfile extends JPanel {
 		setBackground(ColorPalette.white_background);
 		System.out.println(container.getSize());
 
-
 		changes = new PropertyChangeSupport(this);
 		isFollowed = user.getFollowers().contains(loggedUser) ? true : false;
 

@@ -3,6 +3,7 @@ package pajc.square.appView;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
@@ -12,6 +13,7 @@ import pajc.config.Config;
 import pajc.config.FontSettings;
 import pajc.config.Layout;
 import pajc.config.Vars;
+import pajc.square.model.Post;
 import pajc.square.model.User;
 
 public class SquareMainFrame {

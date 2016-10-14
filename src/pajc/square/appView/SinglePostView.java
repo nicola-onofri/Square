@@ -76,7 +76,7 @@ public class SinglePostView extends JPanel {
 		add(pnlFooter);
 		pnlFooter.setLayout(null);
 
-		lblPostDate = new JLabel("Post Date");
+		lblPostDate = new JLabel(post.getDate().toString());
 		lblPostDate.setBounds(199, 85, 70, 15);
 		pnlFooter.add(lblPostDate);
 
