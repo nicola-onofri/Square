@@ -146,14 +146,12 @@ public class PostDetails extends JPanel implements PropertyChangeListener {
 		btnFollow = new JButton();
 		btnFollow.setFont(new Font("Droid Sans", Font.PLAIN, 13));
 		btnFollow.setForeground(Color.WHITE);
-		btnFollow.setSize(150, Layout.button_default_height);
+		btnFollow.setSize(Layout.button_default_width, Layout.button_default_height);
 		btnFollow.setLocation(container_max_X - btnFollow.getWidth(), Layout.component_margin);
 
 		// TODO initialize the button with the correct color, based on the
 		// loggedUser info
-		if (loggedUser.equals(post.getOwner())) {
-			btnFollow.setVisible(false);
-		} else if (loggedUser.getFollowings().contains(post.getOwner())) {
+		if (loggedUser.getFollowings().contains(post.getOwner())) {
 			btnFollow.setText("Unfollow");
 			btnFollow.setBackground(ColorPalette.red_button);
 		} else {

@@ -30,8 +30,10 @@ public class Layout {
 	public final static int textarea_offset = 50;
 
 	public final static int component_margin = 12;
+	public final static int singlePost_border_size = 1;
 	public final static int label_default_height = 15;
 	public final static int button_default_height = 25;
+	public final static int button_default_width = 150;
 	public final static int tab_icon_size = 30;
 	public final static int separator_height = 2;
 

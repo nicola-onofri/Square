@@ -10,7 +10,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -46,11 +45,11 @@ public class UserProfile extends JPanel {
 	protected PropertyChangeSupport changes;
 
 	// UserProfileView Constructor
-	public UserProfile(JFrame container, Rectangle bounds, User loggedUser, User user) {
+	public UserProfile(Rectangle bounds, User loggedUser, User user) {
 		setLayout(null);
 		setBounds(bounds);
 		setBackground(ColorPalette.white_background);
-		System.out.println(container.getSize());
+		// System.out.println(container.getSize());
 
 		changes = new PropertyChangeSupport(this);
 		isFollowed = user.getFollowers().contains(loggedUser) ? true : false;
@@ -77,7 +76,7 @@ public class UserProfile extends JPanel {
 				+ Layout.component_margin * 2;
 
 		btnFollow = new JButton();
-		btnFollow.setSize(150, Layout.button_default_height);
+		btnFollow.setSize(Layout.button_default_width, Layout.button_default_height);
 		btnFollow.setLocation(container_max_X - btnFollow.getWidth(), lblProfilePicture.getY());
 		btnFollow.setFont(new Font("Droid Sans", Font.PLAIN, 13));
 		btnFollow.setForeground(Color.WHITE);

@@ -1,5 +1,6 @@
 package pajc.square.appView;
 
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import pajc.config.ColorPalette;
 import pajc.config.Config;
 import pajc.config.FontSettings;
 import pajc.config.Layout;
@@ -64,6 +66,7 @@ public class SquareMainFrame {
 		// By default create a PersistentNavBar with loggedUser View
 		frame.add(new PersistentNavigationBar(frame, loggedUser, user));
 		frame.setVisible(true);
+		frame.getContentPane().setBackground(ColorPalette.white_background);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// App Configuration

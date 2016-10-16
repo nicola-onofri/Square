@@ -21,7 +21,6 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
@@ -69,12 +68,12 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 				Layout.persistentNavBar_height + Layout.component_margin * 2 + Layout.separator_height / 2, getWidth(),
 				getHeight() - Layout.persistentMenu_height - Layout.persistentNavBar_height
 						- Layout.component_margin * 3 + Layout.separator_height);
-		contentPane.setBackground(ColorPalette.white_background);
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setVisible(false);
 		add(contentPane);
 
 		// By default the first view is the loggedUser's ProfileView
-		userView = new UserProfile(container, contentPane.getBounds(), loggedUser, user);
+		userView = new UserProfile(contentPane.getBounds(), loggedUser, user);
 		add(userView);
 
 		// Logo
@@ -90,7 +89,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 
 		// Logged User Profile
 		lblProfile = new JLabel();
-		lblProfile.setToolTipText(Vars.tooltip_profile);
 		lblProfile.setIcon(new ImageIcon(Vars.icon_path + "profile_small.png"));
 		lblProfile.setBounds(container.getWidth() - Layout.component_margin * 2 - Layout.tab_icon_size,
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
@@ -111,13 +109,14 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		// }
 		// });
 
+		// Go to loggedUser's ProfileView
 		lblProfile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				for (int i = 0; i < getComponents().length; i++) {
-					System.out.println(getComponents()[i].getClass());
-				}
-				
+				// for (int i = 0; i < getComponents().length; i++) {
+				// System.out.println(getComponents()[i].getClass());
+				// }
+
 				if (Arrays.asList(getComponents()).stream()
 						.anyMatch(c -> (c instanceof UserProfile || c instanceof SinglePostView) && c != null)) {
 					Arrays.asList(getComponents()).stream()
@@ -125,7 +124,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 							.forEach(c -> {
 								c.setVisible(false);
 								remove(c);
-								c = new UserProfile(container, contentPane.getBounds(), loggedUser, loggedUser);
+								c = new UserProfile(contentPane.getBounds(), loggedUser, loggedUser);
 								add(c);
 							});
 				}
@@ -134,7 +133,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 
 		// Notification - Likes
 		lblLikes = new JLabel();
-		lblLikes.setToolTipText(Vars.tooltip_likes);
 		lblLikes.setIcon(new ImageIcon(Vars.icon_path + "empty_heart_small.png"));
 		lblLikes.setBounds(lblProfile.getX() - Layout.component_margin * 2 - Layout.tab_icon_size,
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
@@ -167,7 +165,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 
 		// Explore - Feed
 		lblExplore = new JLabel();
-		lblExplore.setToolTipText(Vars.tooltip_explore);
 		lblExplore.setIcon(new ImageIcon(Vars.icon_path + "explore_small.png"));
 		lblExplore.setBounds(lblLikes.getX() - Layout.component_margin * 2 - Layout.tab_icon_size,
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
@@ -184,7 +181,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 							.forEach(c -> {
 								c.setVisible(false);
 								remove(c);
-								c = new SinglePostView(container,
+								c = new SinglePostView(contentPane.getBounds(),
 										new Post(loggedUser, "TEST", new GregorianCalendar().getTime(),
 												new ArrayList<>(), new ArrayList<>(),
 												new ImageIcon(Vars.avatar_path + "kendall.png")),
@@ -197,7 +194,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 
 		// Notifications - Inbox, New Follower
 		lblNotifications = new JLabel();
-		lblNotifications.setToolTipText(Vars.tooltip_notifications);
 		lblNotifications.setIcon(new ImageIcon(Vars.icon_path + "inbox_small.png"));
 		lblNotifications.setBounds(lblExplore.getX() - Layout.component_margin * 2 - Layout.tab_icon_size,
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
@@ -246,8 +242,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 								if (Arrays.asList(getComponents()).contains(userView) && userView != null) {
 									userView.setVisible(false);
 									remove(userView);
-									userView = new UserProfile(container, contentPane.getBounds(), loggedUser,
-											loggedUser);
+									userView = new UserProfile(contentPane.getBounds(), loggedUser, loggedUser);
 									add(userView);
 								}
 							}
