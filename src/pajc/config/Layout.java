@@ -15,39 +15,39 @@ import javax.swing.ImageIcon;
 public class Layout {
 
 	// Components
-	public final static int initial_x = 200;
-	public final static int initial_y = 200;
-	public final static int col1_initial_x = 100;
-	public final static int col2_initial_x = 300;
-	public final static int input_width = 200;
-	public final static int input_height = 40;
-	public final static int input_margin = 60;
-	public final static int input_opacity = 85;
-	public final static int slider_width = 170;
-	public final static int slider_heigth = 39;
+	public static final int initial_x = 200;
+	public static final int initial_y = 200;
+	public static final int col1_initial_x = 100;
+	public static final int col2_initial_x = 300;
+	public static final int input_width = 200;
+	public static final int input_height = 40;
+	public static final int input_margin = 60;
+	public static final int input_opacity = 85;
+	public static final int slider_width = 170;
+	public static final int slider_heigth = 39;
 
-	public final static int textarea_width = 250;
-	public final static int textarea_offset = 50;
+	public static final int textarea_width = 250;
+	public static final int textarea_offset = 50;
 
-	public final static int component_margin = 12;
-	public final static int singlePost_border_size = 1;
-	public final static int label_default_height = 15;
-	public final static int button_default_height = 25;
-	public final static int button_default_width = 150;
-	public final static int tab_icon_size = 30;
-	public final static int separator_height = 2;
+	public static final int component_margin = 12;
+	public static final int singlePost_border_size = 1;
+	public static final int label_default_height = 15;
+	public static final int button_default_height = 25;
+	public static final int button_default_width = 150;
+	public static final int tab_icon_size = 30;
+	public static final int separator_height = 2;
 
 	// Media
-	public final static int avatar_upload_size = 100;
-	public final static int avatar_min_size = 50;
-	public final static int profile_picture_size = 170;
-	public final static int avatar_thumbnail_size = 30;
-	public final static int post_thumbnail_size = 150;
+	public static final int avatar_upload_size = 100;
+	public static final int avatar_min_size = 50;
+	public static final int profile_picture_size = 170;
+	public static final int avatar_thumbnail_size = 30;
+	public static final int post_thumbnail_size = 150;
 	public static final int single_post_size = 300;
 
 	// Profile Header
-	public final static int profile_header_text_x = 100;
-	public final static int profile_header_text_y = 250;
+	public static final int profile_header_text_x = 100;
+	public static final int profile_header_text_y = 250;
 
 	public static final int persistentNavBar_height = 60;
 	public static final int persistentMenu_height = 100;

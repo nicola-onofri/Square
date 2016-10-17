@@ -6,6 +6,10 @@ import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeSupport;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,12 +22,12 @@ import javax.swing.SwingConstants;
 import pajc.config.ColorPalette;
 import pajc.config.Layout;
 import pajc.config.RoundedImage;
+import pajc.config.Vars;
 import pajc.square.model.Post;
 import pajc.square.model.User;
 
 public class SinglePostView extends JPanel {
 	private static final long serialVersionUID = 1L;
-
 	private Boolean isFollowed;
 	private JButton btnFollow;
 	private JLabel lblHeart;
@@ -86,41 +90,57 @@ public class SinglePostView extends JPanel {
 		btnFollow.setForeground(Color.WHITE);
 		pnlHeader.add(btnFollow);
 
-		// TODO what happens if the logged user sees his own picture?
-		if (isFollowed) {
-			btnFollow.setText("Unfollow");
-			btnFollow.setBackground(ColorPalette.red_button);
-		} else {
-			btnFollow.setText("Follow");
-			btnFollow.setBackground(ColorPalette.green_button);
-		}
-
-		// Change status and color of the button
-		btnFollow.addMouseListener(new MouseAdapter() {
-			boolean following = loggedUser.getFollowings().contains(post.getOwner());
-
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (following) {
-					following = false;
-					btnFollow.setText("Follow");
-					btnFollow.setBackground(ColorPalette.green_button);
-					// changes.firePropertyChange("User Followed", false, true);
-				} else {
-					following = true;
-					btnFollow.setText("Unfollow");
-					btnFollow.setBackground(ColorPalette.red_button);
-					// changes.firePropertyChange("User Unfollowed", true,
-					// false);
-				}
+		if (!loggedUser.equals(post.getOwner())) {
+			// initialize btn with the correct color
+			if (isFollowed) {
+				btnFollow.setText("Unfollow");
+				btnFollow.setBackground(ColorPalette.red_button);
+			} else {
+				btnFollow.setText("Follow");
+				btnFollow.setBackground(ColorPalette.green_button);
 			}
-		});
+
+			// Change status and color of the button only if post owner and
+			// loggedUser are not the same person
+			// TODO firePropertyChange and sync
+			btnFollow.addMouseListener(new MouseAdapter() {
+				boolean following = loggedUser.getFollowings().contains(post.getOwner());
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					if (following) {
+						following = false;
+						btnFollow.setText("Follow");
+						btnFollow.setBackground(ColorPalette.green_button);
+						// changes.firePropertyChange("User Followed", false,
+						// true);
+					} else {
+						following = true;
+						btnFollow.setText("Unfollow");
+						btnFollow.setBackground(ColorPalette.red_button);
+						// changes.firePropertyChange("User Unfollowed", true,
+						// false);
+					}
+				}
+			});
+		} else
+			btnFollow.setVisible(false);
 
 		separatorHeader = new JSeparator();
 		separatorHeader.setBounds(Layout.singlePost_border_size, pnlHeader.getHeight(), getWidth(),
 				Layout.separator_height);
 		separatorHeader.setBackground(ColorPalette.light_blue_separator);
 		add(separatorHeader);
+
+		// Space between header and footer
+		System.out.println("ContentPane: " + getWidth() + " " + (getHeight() - separatorHeader.getX()));
+
+		if (getRoundedTimeDifference(post.getDate()).containsKey(new String(Vars.hours_tag)))
+			System.out.println(
+					"Diff in hours: " + getRoundedTimeDifference(post.getDate()).get(Vars.hours_tag) + " hours");
+		else
+			System.out.println(
+					"Diff in minutes: " + getRoundedTimeDifference(post.getDate()).get(Vars.minutes_tag) + " minutes");
 
 		// Post picture in the middle of the container
 		lblPostPicture = new JLabel();
@@ -160,6 +180,22 @@ public class SinglePostView extends JPanel {
 		// lblLikes = new JLabel("likes");
 		// lblLikes.setBounds(49, 14, 70, 15);
 		// pnlFooter.add(lblLikes);
+	}
 
+	// Get time difference between a given date and the current time, converted
+	// to hours or minutes
+	public HashMap<String, Long> getRoundedTimeDifference(Date postDate) {
+		HashMap<String, Long> returnValue = new HashMap<>();
+
+		Date currentTime = new GregorianCalendar().getTime();
+		long diffInMillis = currentTime.getTime() - postDate.getTime();
+
+		// if difference in hours is less than 1 (= 0) then return the value
+		// converted in minutes, otherwise return the value converted in hours
+		if (TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS) == 0)
+			returnValue.put(Vars.minutes_tag, TimeUnit.MINUTES.convert(diffInMillis, TimeUnit.MILLISECONDS));
+		else
+			returnValue.put(Vars.hours_tag, TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS));
+		return returnValue;
 	}
 }

@@ -12,6 +12,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -113,10 +114,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		lblProfile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				// for (int i = 0; i < getComponents().length; i++) {
-				// System.out.println(getComponents()[i].getClass());
-				// }
-
 				if (Arrays.asList(getComponents()).stream()
 						.anyMatch(c -> (c instanceof UserProfile || c instanceof SinglePostView) && c != null)) {
 					Arrays.asList(getComponents()).stream()
@@ -182,9 +179,8 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 								c.setVisible(false);
 								remove(c);
 								c = new SinglePostView(contentPane.getBounds(),
-										new Post(loggedUser, "TEST", new GregorianCalendar().getTime(),
-												new ArrayList<>(), new ArrayList<>(),
-												new ImageIcon(Vars.avatar_path + "kendall.png")),
+										new Post(loggedUser, "TEST", new Date(1476745200000L), new ArrayList<>(),
+												new ArrayList<>(), new ImageIcon(Vars.avatar_path + "kendall.png")),
 										loggedUser);
 								add(c);
 							});

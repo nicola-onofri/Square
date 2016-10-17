@@ -18,30 +18,30 @@ public class Vars {
 	public static final String post_path = "res/img/";
 
 	// Values
-	public final static int input_opacity = 85;
-	public final static int max_length_about_you = 140;
-	public final static int max_length_comment = 100;
+	public static final int input_opacity = 85;
 
-	// Tooltips
-	public static final String tooltip_profile = "Go to your profile";
-	public static final String tooltip_explore = "Open Explore tab";
-	public static final String tooltip_likes = "Open Likes menu";
-	public static final String tooltip_notifications = "Open Notifications menu";
+	// Put these values in Layout Class
+	public static final int max_length_about_you = 140;
+	public static final int max_length_comment = 100;
 
 	// Placeholders
-	public final static String placeholder_username = "Username";
-	public final static String placeholder_email = "Email";
-	public final static String placeholder_password = "Password";
-	public final static String placeholder_name = "Your First Name";
-	public final static String placeholder_last_name = "Your Last Name";
-	public final static String placeholder_about = "About Me";
-	public final static String placeholder_caption = "Caption";
+	public static final String placeholder_username = "Username";
+	public static final String placeholder_email = "Email";
+	public static final String placeholder_password = "Password";
+	public static final String placeholder_name = "Your First Name";
+	public static final String placeholder_last_name = "Your Last Name";
+	public static final String placeholder_about = "About Me";
+	public static final String placeholder_caption = "Caption";
 	public static final String placeholder_search = "Search User";
 	public static final String placeholder_newComment = "Write a comment...";
 	public static final String liked = "liked your photo!";
 
+	// General Tags
+	public static final String minutes_tag = "minutes";
+	public static final String hours_tag = "hours";
+
 	// Warnings
-	public final static String warning_file_format = "Warning! The file you have chosen doesn't match\nthe required extension";
+	public static final String warning_file_format = "Warning! The file you have chosen doesn't match\nthe required extension";
 	public static final String warning_no_icon = "Warning! You didn't upload any file.\nTry again";
 
 }
