@@ -1,18 +1,17 @@
 package pajc.square.appView;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeSupport;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
@@ -22,7 +21,6 @@ import javax.swing.SwingConstants;
 import pajc.config.ColorPalette;
 import pajc.config.Layout;
 import pajc.config.RoundedImage;
-import pajc.config.Vars;
 import pajc.square.model.Post;
 import pajc.square.model.User;
 
@@ -36,6 +34,7 @@ public class SinglePostView extends JPanel {
 	private JLabel lblPostPicture;
 	private JLabel lblProfilePicture;
 	private JLabel lblUsername;
+	private JFrame postDetailsFrame;
 	private JPanel pnlHeader;
 	private JPanel pnlFooter;
 	private JSeparator separatorHeader;
@@ -45,12 +44,13 @@ public class SinglePostView extends JPanel {
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	public SinglePostView(Rectangle bounds, Post post, User loggedUser) {
+		System.out.println(bounds.getBounds());
 		setLayout(null);
 		setVisible(true);
 		setBackground(Color.WHITE);
 		setBounds(bounds);
-		setBounds(getX() + 100, getY() + Layout.component_margin, getWidth() - 200,
-				getHeight() - Layout.component_margin * 2);
+		setBounds(getX() + Layout.single_post_pnl_offset, getY() + Layout.component_margin,
+				getWidth() - Layout.single_post_pnl_offset * 2, getHeight() - Layout.component_margin * 2);
 		setBorder(BorderFactory.createMatteBorder(Layout.singlePost_border_size, Layout.singlePost_border_size,
 				Layout.singlePost_border_size, Layout.singlePost_border_size, ColorPalette.light_blue_separator));
 
@@ -61,11 +61,11 @@ public class SinglePostView extends JPanel {
 		pnlHeader.setLayout(null);
 		pnlHeader.setBackground(Color.WHITE);
 		pnlHeader.setBounds(Layout.singlePost_border_size, Layout.singlePost_border_size,
-				getWidth() - Layout.singlePost_border_size * 2, Layout.avatar_min_size + Layout.component_margin * 2);
+				getWidth() - Layout.singlePost_border_size * 2, Layout.avatar_min_size + Layout.component_margin);
 		add(pnlHeader);
 
 		lblProfilePicture = new JLabel();
-		lblProfilePicture.setBounds(Layout.component_margin, Layout.component_margin, Layout.avatar_min_size,
+		lblProfilePicture.setBounds(Layout.component_margin, Layout.component_margin / 2, Layout.avatar_min_size,
 				Layout.avatar_min_size);
 		lblProfilePicture.setIcon(RoundedImage.createRoundedImage(Layout
 				.getScaledImage(post.getOwner().getProfilePicture(), Layout.avatar_min_size, Layout.avatar_min_size)));
@@ -134,38 +134,64 @@ public class SinglePostView extends JPanel {
 
 		// Space between header and footer
 		System.out.println("ContentPane: " + getWidth() + " " + (getHeight() - separatorHeader.getX()));
-
-		if (getRoundedTimeDifference(post.getDate()).containsKey(new String(Vars.hours_tag)))
-			System.out.println(
-					"Diff in hours: " + getRoundedTimeDifference(post.getDate()).get(Vars.hours_tag) + " hours");
-		else
-			System.out.println(
-					"Diff in minutes: " + getRoundedTimeDifference(post.getDate()).get(Vars.minutes_tag) + " minutes");
+		int criticalSize = Math.max(getWidth(), getHeight() - separatorHeader.getX());
 
 		// Post picture in the middle of the container
 		lblPostPicture = new JLabel();
-		lblPostPicture.setBackground(Color.BLACK);
-		// lblPostPicture.setBounds(Layout.component_margin,
-		// pnlHeader.getHeight(),
-		// getWidth() - Layout.component_margin * 2, getWidth() -
-		// Layout.component_margin * 2);
-		lblPostPicture.setBounds(Layout.component_margin, 300, 100, 100);
+		lblPostPicture.setBounds(Layout.singlePost_border_size, separatorHeader.getY(), criticalSize, criticalSize);
 		lblPostPicture
 				.setIcon(Layout.getScaledImage(post.getImage(), lblPostPicture.getWidth(), lblPostPicture.getWidth()));
+
+		lblPostPicture.addMouseListener(new MouseAdapter() {
+
+			// OnClick show PostDetails View, the same used in the PostGrid menu
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("Mouse Clicked!");
+				postDetailsFrame = new JFrame(post.getOwner().getUsername() + "'s post");
+				postDetailsFrame.setBounds(Layout.dim.width / 4, Layout.dim.height / 4, Layout.dim.width / 2,
+						Layout.dim.height / 2);
+				PostDetails pd = new PostDetails(postDetailsFrame, post, loggedUser, post.getOwner());
+				postDetailsFrame.getContentPane().add(pd, BorderLayout.CENTER);
+				postDetailsFrame.setResizable(false);
+				postDetailsFrame.setVisible(true);
+				postDetailsFrame.setAlwaysOnTop(true);
+				postDetailsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+			}
+		});
+
 		add(lblPostPicture);
 
+		// TODO: fix issue: where can I put the rest of the component?
+		
 		// separatorFooter = new JSeparator();
-		// separatorFooter.setBounds(0, 0, 1, 2);
-		// pnlFooter.add(separatorFooter);
-		//
+		// separatorFooter.setBounds(Layout.singlePost_border_size,
+		// lblPostPicture.getY() + lblPostPicture.getHeight(),
+		// getWidth() - Layout.singlePost_border_size * 2,
+		// Layout.separator_height);
+		// separatorFooter.setBackground(ColorPalette.light_blue_separator);
+		// add(separatorFooter);
+
+		// Footer Bar
 		// pnlFooter = new JPanel();
-		// pnlFooter.setBackground(Color.WHITE);
-		// pnlFooter.setBounds(0, 322, 469, 112);
-		// add(pnlFooter);
 		// pnlFooter.setLayout(null);
-		//
+		// pnlFooter.setBackground(Color.BLUE);
+		// pnlFooter.setBounds(Layout.singlePost_border_size,
+		// separatorHeader.getY() + separatorFooter.getWidth(),
+		// getWidth() - Layout.single_post_size * 2, 150);
+		// add(pnlFooter);
 		// lblPostDate = new JLabel(post.getDate().toString());
-		// lblPostDate.setBounds(199, 85, 70, 15);
+		// lblPostDate.setBounds(10, 10, 70, 15);
 		// pnlFooter.add(lblPostDate);
 		//
 		// txtrCaption = new JTextArea();
@@ -180,22 +206,5 @@ public class SinglePostView extends JPanel {
 		// lblLikes = new JLabel("likes");
 		// lblLikes.setBounds(49, 14, 70, 15);
 		// pnlFooter.add(lblLikes);
-	}
-
-	// Get time difference between a given date and the current time, converted
-	// to hours or minutes
-	public HashMap<String, Long> getRoundedTimeDifference(Date postDate) {
-		HashMap<String, Long> returnValue = new HashMap<>();
-
-		Date currentTime = new GregorianCalendar().getTime();
-		long diffInMillis = currentTime.getTime() - postDate.getTime();
-
-		// if difference in hours is less than 1 (= 0) then return the value
-		// converted in minutes, otherwise return the value converted in hours
-		if (TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS) == 0)
-			returnValue.put(Vars.minutes_tag, TimeUnit.MINUTES.convert(diffInMillis, TimeUnit.MILLISECONDS));
-		else
-			returnValue.put(Vars.hours_tag, TimeUnit.HOURS.convert(diffInMillis, TimeUnit.MILLISECONDS));
-		return returnValue;
 	}
 }

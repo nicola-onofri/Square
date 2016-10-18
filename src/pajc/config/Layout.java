@@ -43,6 +43,7 @@ public class Layout {
 	public static final int profile_picture_size = 170;
 	public static final int avatar_thumbnail_size = 30;
 	public static final int post_thumbnail_size = 150;
+	public static final int single_post_pnl_offset = 120;
 	public static final int single_post_size = 300;
 
 	// Profile Header

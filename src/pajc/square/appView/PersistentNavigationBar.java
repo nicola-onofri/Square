@@ -96,21 +96,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		add(lblProfile);
 
 		// Go to loggedUser's ProfileView
-		// lblProfile.addMouseListener(new MouseAdapter() {
-		// @Override
-		// public void mouseClicked(MouseEvent e) {
-		// if (Arrays.asList(getComponents()).contains(userView) && userView !=
-		// null) {
-		// userView.setVisible(false);
-		// remove(userView);
-		// userView = new UserProfile(container, contentPane.getBounds(),
-		// loggedUser, loggedUser);
-		// add(userView);
-		// }
-		// }
-		// });
-
-		// Go to loggedUser's ProfileView
 		lblProfile.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -148,13 +133,12 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 					JComponent itemComponent = createLikesItem(popupMenuLikes,
 							new Notification(user, loggedUser,
 									new Post(loggedUser, "test", new GregorianCalendar().getTime(), new ArrayList<>(),
-											new ArrayList<>(), new ImageIcon(Vars.post_path + "kendall1.png")),
+											new ArrayList<>(), new ImageIcon(Vars.post_path + "kylie_8.png")),
 									false, false, new GregorianCalendar().getTime()),
 							i);
 
 					popupMenuLikes.add(itemComponent);
 				}
-
 				popupMenuLikes.show(lblLikes, popupMenuLikes.getX(), popupMenuLikes.getY());
 			}
 
@@ -179,8 +163,8 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 								c.setVisible(false);
 								remove(c);
 								c = new SinglePostView(contentPane.getBounds(),
-										new Post(loggedUser, "TEST", new Date(1476745200000L), new ArrayList<>(),
-												new ArrayList<>(), new ImageIcon(Vars.avatar_path + "kendall.png")),
+										new Post(loggedUser, "test", new Date(1476745200000L), new ArrayList<>(),
+												new ArrayList<>(), new ImageIcon(Vars.post_path + "kylie_8.png")),
 										loggedUser);
 								add(c);
 							});
