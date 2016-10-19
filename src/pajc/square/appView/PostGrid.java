@@ -73,7 +73,7 @@ public class PostGrid extends JPanel implements PropertyChangeListener {
 				postDetailsFrame.setBounds(Layout.dim.width / 4, Layout.dim.height / 4, Layout.dim.width / 2,
 						Layout.dim.height / 2);
 				postDetailsFrame.addPropertyChangeListener(pg);
-				PostDetails pd = new PostDetails(postDetailsFrame, post, loggedUser, user);
+				PostDetailsView pd = new PostDetailsView(postDetailsFrame, post, loggedUser, user);
 				pd.addPropertyChangeListener(pg);
 				postDetailsFrame.getContentPane().add(pd, BorderLayout.CENTER);
 				postDetailsFrame.setResizable(false);

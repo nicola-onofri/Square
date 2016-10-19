@@ -10,6 +10,8 @@ import java.util.HashMap;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
+import org.bridj.jawt.JAWT_DrawingSurface.GetDrawingSurfaceInfo_callback;
+
 import pajc.config.ColorPalette;
 import pajc.config.Config;
 import pajc.config.FontSettings;
@@ -51,10 +53,12 @@ public class SquareMainFrame {
 	 */
 	private void initialize() {
 		frame = new JFrame("Square");
-		frame.setBounds(0, 0, Layout.dim.width / 2, Layout.dim.height - 100);
+		frame.setBounds(0, 0, Layout.dim.width / 2 - Layout.mainFrame_width_offset,
+				Layout.dim.height - Layout.mainFrame_height_offset);
 		frame.setLocation(Layout.dim.width / 2 - frame.getSize().width / 2,
 				Layout.dim.height / 2 - frame.getSize().height / 2);
 
+		System.out.println("External frame size: " + frame.getBounds());
 		User loggedUser = new User("kyliejenner", "queenkylie@xoxo.com", "xoxo", "Kylie Jenner", "Simply you queen",
 				new ImageIcon(Vars.post_path + "kylie_4.png"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
 				new ArrayList<>());

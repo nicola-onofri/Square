@@ -198,10 +198,9 @@ public class UserProfile extends JPanel {
 		postGrid.addPropertyChangeListener(listener);
 
 		scrollableGrid = new JScrollPane(postGrid);
-		scrollableGrid.setLocation(Layout.component_margin,
-				pnlProfileHeader.getY() + pnlProfileHeader.getHeight() + Layout.component_margin);
+		scrollableGrid.setLocation(Layout.component_margin, pnlProfileHeader.getY() + pnlProfileHeader.getHeight());
 		scrollableGrid.setSize(container_max_X - lblProfilePicture.getX(),
-				getHeight() - pnlProfileHeader.getHeight() - pnlProfileHeader.getY() - Layout.component_margin * 2);
+				getHeight() - pnlProfileHeader.getHeight() - pnlProfileHeader.getY() - Layout.component_margin / 2);
 		scrollableGrid.setBackground(ColorPalette.white_background);
 		scrollableGrid.setBorder(null);
 		add(scrollableGrid);

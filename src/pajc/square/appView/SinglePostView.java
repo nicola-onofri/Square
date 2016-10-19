@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
+import java.awt.Label;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -44,13 +45,17 @@ public class SinglePostView extends JPanel {
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	public SinglePostView(Rectangle bounds, Post post, User loggedUser) {
-		System.out.println(bounds.getBounds());
+		System.out.println("SinglePostView: " + bounds.getBounds());
 		setLayout(null);
-		setVisible(true);
 		setBackground(Color.WHITE);
 		setBounds(bounds);
+		// setBounds(getX() + Layout.single_post_pnl_offset, getY() +
+		// Layout.component_margin,
+		// getWidth() - Layout.single_post_pnl_offset * 2, getHeight() -
+		// Layout.component_margin * 2);
+		// Static Size?
 		setBounds(getX() + Layout.single_post_pnl_offset, getY() + Layout.component_margin,
-				getWidth() - Layout.single_post_pnl_offset * 2, getHeight() - Layout.component_margin * 2);
+				getWidth() - Layout.single_post_pnl_offset * 2, getWidth() - Layout.single_post_pnl_offset * 2);
 		setBorder(BorderFactory.createMatteBorder(Layout.singlePost_border_size, Layout.singlePost_border_size,
 				Layout.singlePost_border_size, Layout.singlePost_border_size, ColorPalette.light_blue_separator));
 
@@ -134,7 +139,7 @@ public class SinglePostView extends JPanel {
 
 		// Space between header and footer
 		System.out.println("ContentPane: " + getWidth() + " " + (getHeight() - separatorHeader.getX()));
-		int criticalSize = Math.max(getWidth(), getHeight() - separatorHeader.getX());
+		int criticalSize = Math.min(getWidth(), getHeight() - separatorHeader.getX());
 
 		// Post picture in the middle of the container
 		lblPostPicture = new JLabel();
@@ -151,7 +156,7 @@ public class SinglePostView extends JPanel {
 				postDetailsFrame = new JFrame(post.getOwner().getUsername() + "'s post");
 				postDetailsFrame.setBounds(Layout.dim.width / 4, Layout.dim.height / 4, Layout.dim.width / 2,
 						Layout.dim.height / 2);
-				PostDetails pd = new PostDetails(postDetailsFrame, post, loggedUser, post.getOwner());
+				PostDetailsView pd = new PostDetailsView(postDetailsFrame, post, loggedUser, post.getOwner());
 				postDetailsFrame.getContentPane().add(pd, BorderLayout.CENTER);
 				postDetailsFrame.setResizable(false);
 				postDetailsFrame.setVisible(true);
@@ -173,23 +178,21 @@ public class SinglePostView extends JPanel {
 		add(lblPostPicture);
 
 		// TODO: fix issue: where can I put the rest of the component?
-		
-		// separatorFooter = new JSeparator();
-		// separatorFooter.setBounds(Layout.singlePost_border_size,
-		// lblPostPicture.getY() + lblPostPicture.getHeight(),
-		// getWidth() - Layout.singlePost_border_size * 2,
-		// Layout.separator_height);
-		// separatorFooter.setBackground(ColorPalette.light_blue_separator);
-		// add(separatorFooter);
+
+		separatorFooter = new JSeparator();
+		separatorFooter.setBounds(Layout.singlePost_border_size, lblPostPicture.getY() + lblPostPicture.getHeight(),
+				getWidth() - Layout.singlePost_border_size * 2, Layout.separator_height);
+		separatorFooter.setBackground(ColorPalette.light_blue_separator);
+		add(separatorFooter);
 
 		// Footer Bar
-		// pnlFooter = new JPanel();
-		// pnlFooter.setLayout(null);
-		// pnlFooter.setBackground(Color.BLUE);
-		// pnlFooter.setBounds(Layout.singlePost_border_size,
-		// separatorHeader.getY() + separatorFooter.getWidth(),
-		// getWidth() - Layout.single_post_size * 2, 150);
-		// add(pnlFooter);
+		pnlFooter = new JPanel();
+		pnlFooter.setLayout(null);
+		pnlFooter.setBackground(Color.BLUE);
+		pnlFooter.setBounds(Layout.singlePost_border_size, separatorFooter.getY() + separatorFooter.getWidth(),
+				getWidth() - Layout.single_post_size * 2, 150);
+		add(pnlFooter);
+
 		// lblPostDate = new JLabel(post.getDate().toString());
 		// lblPostDate.setBounds(10, 10, 70, 15);
 		// pnlFooter.add(lblPostDate);

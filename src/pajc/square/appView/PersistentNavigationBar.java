@@ -48,8 +48,8 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 	private JLabel lblProfile;
 	private JLabel lblNewPost;
 	private JLabel lblLoginInfo;
-	private JSeparator jsNavBar;
-	private JSeparator jsMenu;
+	private JSeparator separatorNavBar;
+	private JSeparator separatorMenu;
 	private JPanel backgroundNavBar;
 	private JPanel backgroundMenu;
 	private JPanel contentPane;
@@ -276,11 +276,11 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		DataValidation.deleteTextOnFocusGained(txtSearchUser, Vars.placeholder_search);
 
 		// Separator
-		jsNavBar = new JSeparator(SwingConstants.HORIZONTAL);
-		jsNavBar.setLocation(0, Layout.persistentNavBar_height + Layout.component_margin * 2);
-		jsNavBar.setSize(container.getWidth(), 2);
-		jsNavBar.setBackground(ColorPalette.light_blue_separator);
-		add(jsNavBar);
+		separatorNavBar = new JSeparator(SwingConstants.HORIZONTAL);
+		separatorNavBar.setLocation(0, Layout.persistentNavBar_height + Layout.component_margin * 2);
+		separatorNavBar.setSize(container.getWidth(), 2);
+		separatorNavBar.setBackground(ColorPalette.light_blue_separator);
+		add(separatorNavBar);
 
 		// Background
 		backgroundNavBar = new JPanel();
@@ -292,21 +292,21 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		// -------------------------------------------------------
 		// Persistent Menu
 		// -------------------------------------------------------
-		int menuBarY = getWidth() - Layout.persistentMenu_height - Layout.component_margin * 2;
+		int menuBarY = contentPane.getY() + contentPane.getHeight();
+		// int menuBarY = getWidth() - Layout.persistentMenu_height -
+		// Layout.component_margin * 2;
 
 		// New post - SharePost
 		lblNewPost = new JLabel();
 		lblNewPost.setIcon(new ImageIcon(Vars.icon_path + "camera_small.png"));
 		lblNewPost.setSize(Layout.tab_icon_size, Layout.tab_icon_size);
-		lblNewPost.setLocation(
-
-				getWidth() / 2 - lblNewPost.getWidth() / 2, menuBarY + Layout.component_margin);
+		lblNewPost.setLocation(getWidth() / 2 - lblNewPost.getWidth() / 2, menuBarY + Layout.component_margin);
 		add(lblNewPost);
 
 		lblNewPost.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SharePost sp = new SharePost(loggedUser);
+				SharePostView sp = new SharePostView(loggedUser);
 				sp.setVisible(true);
 			}
 		});
@@ -321,11 +321,11 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		add(lblLoginInfo);
 
 		// Separator
-		jsMenu = new JSeparator(SwingConstants.HORIZONTAL);
-		jsMenu.setLocation(getX(), menuBarY);
-		jsMenu.setSize(container.getWidth(), 2);
-		jsMenu.setBackground(ColorPalette.light_blue_separator);
-		add(jsMenu);
+		separatorMenu = new JSeparator(SwingConstants.HORIZONTAL);
+		separatorMenu.setLocation(getX(), menuBarY);
+		separatorMenu.setSize(container.getWidth(), 2);
+		separatorMenu.setBackground(ColorPalette.light_blue_separator);
+		add(separatorMenu);
 
 		// Background
 		backgroundMenu = new JPanel();
@@ -339,14 +339,6 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		focusGrabber.grabFocus();
 		focusGrabber.setBounds(0, 0, 0, 0);
 		add(focusGrabber);
-	}
-
-	// TODO connection to DB
-	public HashMap<String, JComponent> getSearchList(String textTyped) {
-		// TODO implement a method that returns a list of users/hashtags based
-		// on the string typed in the search bar. Consider the implementation of
-		// a sorting algorithm i.e. followers first, then unknown users
-		return null;
 	}
 
 	// Create item that will be inserted in the popupMenuLikes

@@ -25,7 +25,7 @@ import pajc.config.Vars;
 import pajc.square.model.Post;
 import pajc.square.model.User;
 
-public class PostDetails extends JPanel implements PropertyChangeListener {
+public class PostDetailsView extends JPanel implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
 	private Boolean isLiked;
 	private Boolean isFollowed;
@@ -44,7 +44,7 @@ public class PostDetails extends JPanel implements PropertyChangeListener {
 
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
-	public PostDetails(JFrame container, Post post, User loggedUser, User user) {
+	public PostDetailsView(JFrame container, Post post, User loggedUser, User user) {
 		setBackground(ColorPalette.white_background);
 		setLayout(null);
 		setSize(container.getWidth(), container.getHeight());

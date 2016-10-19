@@ -36,22 +36,24 @@ public class Layout {
 	public static final int button_default_width = 150;
 	public static final int tab_icon_size = 30;
 	public static final int separator_height = 2;
+	public static final int mainFrame_width_offset = 0; // 0
+	public static final int mainFrame_height_offset = 60; // 100
 
-	// Media
+	// Media Path
 	public static final int avatar_upload_size = 100;
 	public static final int avatar_min_size = 50;
 	public static final int profile_picture_size = 170;
 	public static final int avatar_thumbnail_size = 30;
 	public static final int post_thumbnail_size = 150;
-	public static final int single_post_pnl_offset = 120;
+	public static final int single_post_pnl_offset = 115; // 120
 	public static final int single_post_size = 300;
 
 	// Profile Header
 	public static final int profile_header_text_x = 100;
 	public static final int profile_header_text_y = 250;
 
-	public static final int persistentNavBar_height = 60;
-	public static final int persistentMenu_height = 100;
+	public static final int persistentNavBar_height = 55; // 55
+	public static final int persistentMenu_height = 95; // 95
 	public static final int header_shareFrame = 74;
 
 	public static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

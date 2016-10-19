@@ -39,7 +39,7 @@ import pajc.square.model.Post;
 import pajc.square.model.User;
 
 //Share post page
-public class SharePost extends JFrame {
+public class SharePostView extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JButton btnSubmit;
 	private JButton btnSearch;
@@ -53,7 +53,7 @@ public class SharePost extends JFrame {
 	private JSeparator jsFooter;
 	private JTextArea txtCaption;
 
-	public SharePost(User loggedUser) {
+	public SharePostView(User loggedUser) {
 		setTitle("New Post");
 		// TODO magic numbers
 		setSize(360, 593);
