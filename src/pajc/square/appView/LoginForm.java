@@ -18,6 +18,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -57,8 +58,7 @@ public class LoginForm extends JPanel {
 		g2d.fillRect(0, 0, w, h);
 	}
 
-	public LoginForm() {
-
+	public LoginForm(JFrame container) {
 		// Get User Resolution
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		setLayout(null);
@@ -138,16 +138,18 @@ public class LoginForm extends JPanel {
 					if (login.isLogged_in()) {
 						JOptionPane.showMessageDialog(null, "Benvenuto, " + txtUsername.getText(), "Login Success",
 								JOptionPane.INFORMATION_MESSAGE);
-						Profile profile = new Profile(login.getLogged_in_user());
+
+						// TODO Load User info from DB
+						PersistentNavigationBar pnv = new PersistentNavigationBar(container, loggedUser, loggedUser);
 
 						// Profile Frame Switch
 						InterfaceHelpers.closeParent(txtUsername);
-						profile.setVisible(true);
+						pnv.setVisible(true);
 
 						// Debug
 						// System.out.println("Logged In");
 						// System.out.println("Logged In User:
-						// "+login.logged_in_user.getUsername());
+						// "+ login.logged_in_user.getUsername());
 					} else {
 						JOptionPane.showMessageDialog(null, "Attenzione! Username o Password errati! Riprova!",
 								"Errore di Validazione", JOptionPane.WARNING_MESSAGE);

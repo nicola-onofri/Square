@@ -3,9 +3,11 @@ package pajc.square.appView;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import pajc.config.ColorPalette;
+import pajc.config.Layout;
 import pajc.square.model.Post;
 import pajc.square.model.User;
 
@@ -14,10 +16,10 @@ public class FeedView extends JScrollPane {
 	private SinglePostView postView;
 
 	public FeedView(Rectangle bounds, User loggedUser, ArrayList<Post> posts) {
-		super();
-		setLayout(null);
-		setVisible(true);
 		setBounds(bounds.getBounds());
+		setLayout(null);
+		setBorder(null);
+		setVisible(true);
 		setBackground(ColorPalette.light_gray_background);
 
 		// This component will contain a list of SinglePostViews getting them
@@ -25,13 +27,17 @@ public class FeedView extends JScrollPane {
 		// will (eventually) have a btn at the end to change post view from
 		// single post in the middle of the panel to gridLayout (more compact)
 
-		// I've decided to use streams instead of for loops so that filtering
-		// and sorting posts will be easier
-		posts.stream().forEach(post -> {
-			postView = new SinglePostView(bounds, post, loggedUser);
-			add(postView);
-		});
+		System.out.println("ScrollPane " + getBounds());
+		// System.out.println("Bounds: " + bounds);
 
+		for (int index = 0; index < posts.size(); index++) {
+			postView = new SinglePostView(
+					new Rectangle(100, (int) (bounds.getHeight()) + index * Layout.component_margin,
+							(int) bounds.getWidth(), (int) bounds.getHeight()),
+					posts.get(index), loggedUser);
+			postView.setVisible(true);
+			add(postView);
+		}
 	}
 
 }

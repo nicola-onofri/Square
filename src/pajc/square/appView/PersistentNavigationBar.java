@@ -2,6 +2,7 @@ package pajc.square.appView;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -12,9 +13,7 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.swing.ImageIcon;
@@ -24,6 +23,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -150,8 +150,38 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 		lblExplore.setBounds(lblLikes.getX() - Layout.component_margin * 2 - Layout.tab_icon_size,
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
 		add(lblExplore);
+		//
+		// // Go to loggedUser's ProfileView
+		// lblExplore.addMouseListener(new MouseAdapter() {
+		// @Override
+		// public void mouseClicked(MouseEvent e) {
+		// if (Arrays.asList(getComponents()).stream()
+		// .anyMatch(c -> (c instanceof UserProfile || c instanceof
+		// SinglePostView) && c != null)) {
+		// Arrays.asList(getComponents()).stream()
+		// .filter(c -> (c instanceof UserProfile || c instanceof
+		// SinglePostView) && c != null)
+		// .forEach(c -> {
+		// c.setVisible(false);
+		// remove(c);
+		// c = new SinglePostView(contentPane.getBounds(), new Post(loggedUser,
+		// "test", new Date(1476745200000L),
+		// new ArrayList<>(), new ArrayList<>(), new ImageIcon(Vars.post_path +
+		// "kylie_8.png")), loggedUser);
+		// // add(c);
+		// });
+		// }
+		// }
+		// });
 
-		// Go to loggedUser's ProfileView
+		ArrayList<Post> posts = new ArrayList<>();
+
+		for (int i = 0; i < 5; i++) {
+			Post post = loggedUser.getPosts().get(0);
+			post.setDescription(String.valueOf(i));
+			posts.add(post);
+		}
+
 		lblExplore.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -162,9 +192,9 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 							.forEach(c -> {
 								c.setVisible(false);
 								remove(c);
-								c = new SinglePostView(contentPane.getBounds(),
-										new Post(loggedUser, "test", new Date(1476745200000L), new ArrayList<>(),
-												new ArrayList<>(), new ImageIcon(Vars.post_path + "kylie_8.png")),
+								// c = new FeedView(contentPane.getBounds(),
+								// loggedUser, posts);
+								c = new SinglePostView(contentPane.getBounds(), loggedUser.getPosts().get(0),
 										loggedUser);
 								add(c);
 							});

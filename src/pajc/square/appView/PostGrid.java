@@ -43,20 +43,20 @@ public class PostGrid extends JPanel implements PropertyChangeListener {
 		 addPost(this, new Post(user, "test", new
 		 GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
 				new ImageIcon(Vars.post_path + "wiz_2.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_3.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_4.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_5.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_6.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_7.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_8.png")), loggedUser, user);
-		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-				new ImageIcon(Vars.post_path + "wiz_9.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_3.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_4.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_5.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_6.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_7.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_8.png")), loggedUser, user);
+//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+//				new ImageIcon(Vars.post_path + "wiz_9.png")), loggedUser, user);
 
 	}
 

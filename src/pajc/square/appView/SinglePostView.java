@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Font;
-import java.awt.Label;
 import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -45,7 +44,6 @@ public class SinglePostView extends JPanel {
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
 	public SinglePostView(Rectangle bounds, Post post, User loggedUser) {
-		System.out.println("SinglePostView: " + bounds.getBounds());
 		setLayout(null);
 		setBackground(Color.WHITE);
 		setBounds(bounds);
@@ -53,11 +51,13 @@ public class SinglePostView extends JPanel {
 		// Layout.component_margin,
 		// getWidth() - Layout.single_post_pnl_offset * 2, getHeight() -
 		// Layout.component_margin * 2);
-		// Static Size?
+
 		setBounds(getX() + Layout.single_post_pnl_offset, getY() + Layout.component_margin,
 				getWidth() - Layout.single_post_pnl_offset * 2, getWidth() - Layout.single_post_pnl_offset * 2);
 		setBorder(BorderFactory.createMatteBorder(Layout.singlePost_border_size, Layout.singlePost_border_size,
 				Layout.singlePost_border_size, Layout.singlePost_border_size, ColorPalette.light_blue_separator));
+
+		System.out.println("SinglePostView bounds: " + getBounds());
 
 		isFollowed = post.getOwner().getFollowers().contains(loggedUser) ? true : false;
 
@@ -75,6 +75,12 @@ public class SinglePostView extends JPanel {
 		lblProfilePicture.setIcon(RoundedImage.createRoundedImage(Layout
 				.getScaledImage(post.getOwner().getProfilePicture(), Layout.avatar_min_size, Layout.avatar_min_size)));
 		pnlHeader.add(lblProfilePicture);
+		lblProfilePicture.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				System.out.println("MouseClicked: " + post.getDescription());
+			}
+		});
 
 		lblUsername = new JLabel(post.getOwner().getUsername());
 		lblUsername.setBounds(lblProfilePicture.getX() + lblProfilePicture.getWidth() + Layout.component_margin * 3,
@@ -139,7 +145,7 @@ public class SinglePostView extends JPanel {
 
 		// Space between header and footer
 		System.out.println("ContentPane: " + getWidth() + " " + (getHeight() - separatorHeader.getX()));
-		int criticalSize = Math.min(getWidth(), getHeight() - separatorHeader.getX());
+		int criticalSize = Math.min(getWidth(), getHeight());
 
 		// Post picture in the middle of the container
 		lblPostPicture = new JLabel();
@@ -152,7 +158,6 @@ public class SinglePostView extends JPanel {
 			// OnClick show PostDetails View, the same used in the PostGrid menu
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				System.out.println("Mouse Clicked!");
 				postDetailsFrame = new JFrame(post.getOwner().getUsername() + "'s post");
 				postDetailsFrame.setBounds(Layout.dim.width / 4, Layout.dim.height / 4, Layout.dim.width / 2,
 						Layout.dim.height / 2);
@@ -177,31 +182,24 @@ public class SinglePostView extends JPanel {
 
 		add(lblPostPicture);
 
-		// TODO: fix issue: where can I put the rest of the component?
-
-		separatorFooter = new JSeparator();
-		separatorFooter.setBounds(Layout.singlePost_border_size, lblPostPicture.getY() + lblPostPicture.getHeight(),
-				getWidth() - Layout.singlePost_border_size * 2, Layout.separator_height);
-		separatorFooter.setBackground(ColorPalette.light_blue_separator);
-		add(separatorFooter);
-
 		// Footer Bar
-		pnlFooter = new JPanel();
-		pnlFooter.setLayout(null);
-		pnlFooter.setBackground(Color.BLUE);
-		pnlFooter.setBounds(Layout.singlePost_border_size, separatorFooter.getY() + separatorFooter.getWidth(),
-				getWidth() - Layout.single_post_size * 2, 150);
-		add(pnlFooter);
+		// pnlFooter = new JPanel();
+		// pnlFooter.setLayout(null);
+		// pnlFooter.setBackground(Color.WHITE);
+		// pnlFooter.setSize(getWidth() - Layout.singlePost_border_size * 2,
+		// (int) (pnlHeader.getHeight() * 1.5));
+		// pnlFooter.setLocation(Layout.singlePost_border_size,
+		// getHeight() - pnlFooter.getHeight() - Layout.singlePost_border_size);
+		// add(pnlFooter);
+		//
+		// separatorFooter = new JSeparator();
+		// separatorFooter.setBounds(Layout.singlePost_border_size,
+		// pnlFooter.getY() - Layout.separator_height / 2,
+		// getWidth() - Layout.singlePost_border_size * 2,
+		// Layout.separator_height);
+		// separatorFooter.setBackground(ColorPalette.light_blue_separator);
+		// add(separatorFooter);
 
-		// lblPostDate = new JLabel(post.getDate().toString());
-		// lblPostDate.setBounds(10, 10, 70, 15);
-		// pnlFooter.add(lblPostDate);
-		//
-		// txtrCaption = new JTextArea();
-		// txtrCaption.setText("Post Caption");
-		// txtrCaption.setBounds(12, 41, 445, 32);
-		// pnlFooter.add(txtrCaption);
-		//
 		// lblHeart = new JLabel("lblHeart");
 		// lblHeart.setBounds(12, 12, 25, 15);
 		// pnlFooter.add(lblHeart);
@@ -209,5 +207,28 @@ public class SinglePostView extends JPanel {
 		// lblLikes = new JLabel("likes");
 		// lblLikes.setBounds(49, 14, 70, 15);
 		// pnlFooter.add(lblLikes);
+
+		// lblPostDate = new JLabel();
+		// if (Utility.getRoundedTimeDifference(post.getDate()).containsKey(new
+		// String(Vars.hours_tag)))
+		// lblPostDate.setText("Diff in hours: " +
+		// Utility.getRoundedTimeDifference(post.getDate()).get(Vars.hours_tag)
+		// + " hours");
+		// else
+		// lblPostDate.setText("Diff in minutes: "
+		// +
+		// Utility.getRoundedTimeDifference(post.getDate()).get(Vars.minutes_tag)
+		// + " minutes");
+		//
+		// lblPostDate.setBounds(Layout.component_margin, 0, 0, 0);
+		// lblPostDate.setVisible(false);
+		// pnlFooter.add(lblPostDate);
+
+		// txtrCaption = new JTextArea();
+		// txtrCaption.setText("Post Caption");
+		// txtrCaption.setBounds(12, 41, 445, 32);
+		// pnlFooter.add(txtrCaption);
+		//
+
 	}
 }

@@ -1,16 +1,13 @@
 package pajc.square.appView;
 
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-
-import org.bridj.jawt.JAWT_DrawingSurface.GetDrawingSurfaceInfo_callback;
 
 import pajc.config.ColorPalette;
 import pajc.config.Config;
@@ -62,6 +59,11 @@ public class SquareMainFrame {
 		User loggedUser = new User("kyliejenner", "queenkylie@xoxo.com", "xoxo", "Kylie Jenner", "Simply you queen",
 				new ImageIcon(Vars.post_path + "kylie_4.png"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
 				new ArrayList<>());
+
+		Post examplePost = new Post(loggedUser, "examplePost", new Date(1476745200000L), new ArrayList<>(),
+				new ArrayList<>(), new ImageIcon(Vars.post_path + "kylie_8.png"));
+
+		loggedUser.getPosts().add(examplePost);
 
 		User user = new User("wizkhalifa", "wizK@joint.com", "jolla", "Wiz Khalifa",
 				"Sebastian's Dad; Mr Personality; Party Shirt Ambassador", new ImageIcon(Vars.post_path + "wiz_2.png"),

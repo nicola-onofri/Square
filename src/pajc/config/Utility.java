@@ -10,7 +10,7 @@ public class Utility {
 
 	// Get time difference between a given date and the current time, converted
 	// to hours or minutes
-	public HashMap<String, Long> getRoundedTimeDifference(Date postDate) {
+	public static HashMap<String, Long> getRoundedTimeDifference(Date postDate) {
 		HashMap<String, Long> returnValue = new HashMap<>();
 
 		Date currentTime = new GregorianCalendar().getTime();

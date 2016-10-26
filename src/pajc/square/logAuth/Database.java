@@ -1,4 +1,4 @@
-package pajc.square.logAuth;
+	package pajc.square.logAuth;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
