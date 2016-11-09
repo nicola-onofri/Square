@@ -1,4 +1,4 @@
-package pajc.square.logAuth;
+package pajc.square.view;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -31,8 +31,7 @@ import pajc.config.DataValidation;
 import pajc.config.InterfaceHelpers;
 import pajc.config.Layout;
 import pajc.config.Vars;
-import pajc.square.model.User;
-import pajc.square.view.UserProfile;
+import pajc.square.logAuth.Login;
 
 public class LoginForm extends JPanel {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +40,6 @@ public class LoginForm extends JPanel {
 	private JButton btnPasswordVisible;
 	private JButton btnLogin;
 	private JLabel lblHelp;
-	private JLabel lblLogo;
 
 	private final static String placeholder_username = "Username";
 	private final static String placeholder_password = "Password";
@@ -67,11 +65,11 @@ public class LoginForm extends JPanel {
 
 		// Logo
 		ImageIcon logo_image = new ImageIcon("res/square_logo_light.png");
-		lblLogo = new JLabel(logo_image);
-		lblLogo.setForeground(Color.WHITE);
-		lblLogo.setFont(new Font("Open Sans", Font.PLAIN, 16));
-		lblLogo.setBounds(Layout.initial_x, 25, dim.width / 6, dim.width / 6);
-		add(lblLogo);
+		JLabel lbl_logo = new JLabel(logo_image);
+		lbl_logo.setForeground(Color.WHITE);
+		lbl_logo.setFont(new Font("Open Sans", Font.PLAIN, 16));
+		lbl_logo.setBounds(Layout.initial_x, 25, dim.width / 6, dim.width / 6);
+		add(lbl_logo);
 
 		// Username Field
 		txtUsername = new JTextField();
@@ -141,15 +139,17 @@ public class LoginForm extends JPanel {
 						JOptionPane.showMessageDialog(null, "Benvenuto, " + txtUsername.getText(), "Login Success",
 								JOptionPane.INFORMATION_MESSAGE);
 
-						User logged_user = login.getLogged_in_user();
-
-						System.out.println(logged_user.toString());
-
-						UserProfile profile = new UserProfile(container, null, logged_user, logged_user);
+						// TODO Load User info from DB
+						PersistentNavigationBar pnv = new PersistentNavigationBar(container, loggedUser, loggedUser);
 
 						// Profile Frame Switch
 						InterfaceHelpers.closeParent(txtUsername);
-						profile.setVisible(true);
+						pnv.setVisible(true);
+
+						// Debug
+						// System.out.println("Logged In");
+						// System.out.println("Logged In User:
+						// "+ login.logged_in_user.getUsername());
 					} else {
 						JOptionPane.showMessageDialog(null, "Attenzione! Username o Password errati! Riprova!",
 								"Errore di Validazione", JOptionPane.WARNING_MESSAGE);

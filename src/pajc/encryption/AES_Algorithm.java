@@ -14,7 +14,7 @@ public class AES_Algorithm {
 
  /**
   * Receives the message to hide and returns the original message encrypted
-  * based on the AES algorithm.
+  * using the AES-256 block cipher.
   * 
   * @param password
   * @param key

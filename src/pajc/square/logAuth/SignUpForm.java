@@ -29,8 +29,8 @@ import pajc.config.ColorPalette;
 import pajc.config.DataValidation;
 import pajc.config.Layout;
 import pajc.config.Vars;
-import pajc.square.appView.AvatarUpload;
 import pajc.square.model.User;
+import pajc.square.view.AvatarUpload;
 
 public class SignUpForm extends JPanel {
 	private static final long serialVersionUID = 1L;
