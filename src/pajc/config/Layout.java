@@ -32,6 +32,7 @@ public class Layout {
 	public static final int component_margin = 12;
 	public static final int singlePost_border_size = 1;
 	public static final int label_default_height = 15;
+	public static final int label_default_width = 100;
 	public static final int button_default_height = 25;
 	public static final int button_default_width = 150;
 	public static final int tab_icon_size = 30;

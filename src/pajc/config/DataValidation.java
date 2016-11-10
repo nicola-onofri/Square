@@ -11,7 +11,6 @@ import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
 
 public class DataValidation {
-
 	// Email Validation
 	public static boolean emailValidation(String email) {
 		String email_regex = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";

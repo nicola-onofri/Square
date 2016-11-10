@@ -28,8 +28,8 @@ public class Vars {
 	public static final String placeholder_username = "Username";
 	public static final String placeholder_email = "Email";
 	public static final String placeholder_password = "Password";
-	public static final String placeholder_name = "Your First Name";
-	public static final String placeholder_last_name = "Your Last Name";
+	public static final String placeholder_name = "First Name";
+	public static final String placeholder_last_name = "Last Name";
 	public static final String placeholder_about = "About Me";
 	public static final String placeholder_caption = "Caption";
 	public static final String placeholder_search = "Search User";
@@ -41,6 +41,8 @@ public class Vars {
 	public static final String hours_tag = "hours";
 
 	// Warnings
+	public static final String authentication_required = "Authentication is required to change user data.\nPlease provide your password to perform actions";
+	public static final String authentication_failed = "Authentication failed! Please try again";
 	public static final String warning_file_format = "Warning! The file you have chosen doesn't match\nthe required extension";
 	public static final String warning_no_icon = "Warning! You didn't upload any file.\nTry again";
 

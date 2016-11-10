@@ -182,19 +182,19 @@ public class UserProfile extends JPanel {
 		btnEdit.setFont(new Font("Droid Sans", Font.PLAIN, 13));
 		pnlProfileHeader.add(btnEdit);
 
+		//TODO when UserSetting window is opened, this frame can't get focus
 		btnEdit.addMouseListener(new MouseAdapter() {
 			//TODO layout + DB connection -> UserSettings
 			@Override
 			public void mouseClicked(MouseEvent e){
 				userSettingsFrame = new JFrame(loggedUser.getUsername() + "'s Settings");
-				
 				userSettingsFrame.setBounds(Layout.dim.width / 4, Layout.dim.height / 4, Layout.dim.width / 2,
 						Layout.dim.height / 2);
 				UserSettings us = new UserSettings(userSettingsFrame, loggedUser);
 				userSettingsFrame.getContentPane().add(us, BorderLayout.CENTER);
 				userSettingsFrame.setResizable(false);
 				userSettingsFrame.setVisible(true);
-				userSettingsFrame.setAlwaysOnTop(true);
+				//userSettingsFrame.setAlwaysOnTop(true);
 				userSettingsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			}
 		});
