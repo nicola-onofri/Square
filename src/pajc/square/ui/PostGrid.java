@@ -1,4 +1,4 @@
-package pajc.square.view;
+package pajc.square.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Cursor;
@@ -28,7 +28,7 @@ public class PostGrid extends JPanel implements PropertyChangeListener {
 	private final int IMAGES_PER_ROW = 4;
 	private ArrayList<ImageIcon> postsThumbnails;
 	private PropertyChangeSupport changes;
-	private GridBagLayout gridBagLayout;
+	private GridBagLayout gbl;
 	private JFrame postDetailsFrame;
 
 	// PostGrid Constructor
@@ -36,27 +36,33 @@ public class PostGrid extends JPanel implements PropertyChangeListener {
 		this.changes = new PropertyChangeSupport(this);
 		this.postsThumbnails = new ArrayList<>();
 
-		gridBagLayout = new GridBagLayout();
-		setLayout(gridBagLayout);
+		gbl = new GridBagLayout();
+		setLayout(gbl);
 
 		// Debug
-		 addPost(this, new Post(user, "test", new
-		 GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
 				new ImageIcon(Vars.post_path + "wiz_2.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_3.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_4.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_5.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_6.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_7.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_8.png")), loggedUser, user);
-//		addPost(this, new Post(user, "test", new GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
-//				new ImageIcon(Vars.post_path + "wiz_9.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_3.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_4.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_5.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_6.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_7.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_8.png")), loggedUser, user);
+		// addPost(this, new Post(user, "test", new
+		// GregorianCalendar().getTime(), new ArrayList<>(), new ArrayList<>(),
+		// new ImageIcon(Vars.post_path + "wiz_9.png")), loggedUser, user);
 
 	}
 
@@ -107,9 +113,8 @@ public class PostGrid extends JPanel implements PropertyChangeListener {
 		// GregorianCalendar().getTime(), new ArrayList<>(),
 		// new ArrayList<>(), resizedThumbnail));
 
-		loggedUser.getPosts().add(new Post(loggedUser, "wiz", new GregorianCalendar().getTime(), new ArrayList<>(),
-				new ArrayList<>(), resizedThumbnail));
-}
+		loggedUser.getPosts().add(post);
+	}
 
 	@Override
 	public void addPropertyChangeListener(PropertyChangeListener listener) {

@@ -1,4 +1,4 @@
-package pajc.square.view;
+package pajc.square.ui;
 
 import javax.swing.JComponent;
 

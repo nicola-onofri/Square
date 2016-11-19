@@ -32,7 +32,7 @@ import pajc.config.InterfaceHelpers;
 import pajc.config.Layout;
 import pajc.config.Vars;
 import pajc.square.model.User;
-import pajc.square.view.UserProfile;
+import pajc.square.ui.UserProfile;
 
 public class LoginForm extends JPanel {
 	private static final long serialVersionUID = 1L;

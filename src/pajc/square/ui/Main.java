@@ -1,4 +1,4 @@
-package pajc.square.view;
+package pajc.square.ui;
 
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -60,10 +60,14 @@ public class Main {
 				new ImageIcon(Vars.post_path + "kylie_4.png"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
 				new ArrayList<>());
 
-		Post examplePost = new Post(loggedUser, "examplePost", new Date(1476745200000L), new ArrayList<>(),
+		Post examplePost1 = new Post(loggedUser, "examplePost", new Date(1476745200000L), new ArrayList<>(),
 				new ArrayList<>(), new ImageIcon(Vars.post_path + "kylie_7.png"));
 
-		loggedUser.getPosts().add(examplePost);
+		Post examplePost2 = new Post(loggedUser, "examplePost2", new Date(1473745200000L), new ArrayList<>(),
+				new ArrayList<>(), new ImageIcon(Vars.post_path + "kylie_8.png"));
+
+		loggedUser.getPosts().add(examplePost1);
+		loggedUser.getPosts().add(examplePost2);
 
 		User user = new User("wizkhalifa", "wizK@joint.com", "jolla", "Wiz Khalifa",
 				"Sebastian's Dad; Mr Personality; Party Shirt Ambassador", new ImageIcon(Vars.post_path + "wiz_2.png"),

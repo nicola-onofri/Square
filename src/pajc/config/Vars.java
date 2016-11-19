@@ -35,6 +35,7 @@ public class Vars {
 	public static final String placeholder_search = "Search User";
 	public static final String placeholder_newComment = "Write a comment...";
 	public static final String liked = "liked your photo!";
+	public static final String log_help = "Forgot your login details? Get help signin in.";
 
 	// General Tags
 	public static final String minutes_tag = "minutes";

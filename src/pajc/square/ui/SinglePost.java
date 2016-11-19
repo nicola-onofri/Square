@@ -1,4 +1,4 @@
-package pajc.square.view;
+package pajc.square.ui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -56,8 +56,9 @@ public class SinglePost extends JPanel {
 				getWidth() - Layout.single_post_pnl_offset * 2, getWidth() - Layout.single_post_pnl_offset * 2);
 		setBorder(BorderFactory.createMatteBorder(Layout.singlePost_border_size, Layout.singlePost_border_size,
 				Layout.singlePost_border_size, Layout.singlePost_border_size, ColorPalette.light_blue_separator));
+		setBackground(Color.YELLOW);
 
-		System.out.println("SinglePostView bounds: " + getBounds());
+		//System.out.println("SinglePostView bounds: " + getBounds());
 
 		isFollowed = post.getOwner().getFollowers().contains(loggedUser) ? true : false;
 

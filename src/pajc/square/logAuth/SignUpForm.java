@@ -30,7 +30,7 @@ import pajc.config.DataValidation;
 import pajc.config.Layout;
 import pajc.config.Vars;
 import pajc.square.model.User;
-import pajc.square.view.AvatarUpload;
+import pajc.square.ui.AvatarUpload;
 
 public class SignUpForm extends JPanel {
 	private static final long serialVersionUID = 1L;

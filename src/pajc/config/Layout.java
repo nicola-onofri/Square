@@ -38,7 +38,7 @@ public class Layout {
 	public static final int tab_icon_size = 30;
 	public static final int separator_height = 2;
 	public static final int mainFrame_width_offset = 0; // 0
-	public static final int mainFrame_height_offset = 60; // 100
+	public static final int mainFrame_height_offset = 100; // 100
 
 	// Media Path
 	public static final int avatar_upload_size = 100;

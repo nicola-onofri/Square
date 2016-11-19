@@ -1,4 +1,4 @@
-package pajc.square.view;
+package pajc.square.ui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;

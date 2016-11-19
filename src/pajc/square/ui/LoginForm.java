@@ -1,4 +1,4 @@
-package pajc.square.view;
+	package pajc.square.ui;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -119,7 +119,7 @@ public class LoginForm extends JPanel {
 			c.addKeyListener(form_enter_submit);
 
 		// Help Label
-		lblHelp = new JLabel("Forgot your login details? Get help signin in.");
+		lblHelp = new JLabel(Vars.log_help);
 		lblHelp.setForeground(Color.WHITE);
 		lblHelp.setFont(new Font("Open Sans", Font.PLAIN, 16));
 		lblHelp.setBounds(129, 376, 330, 23);
@@ -140,11 +140,11 @@ public class LoginForm extends JPanel {
 								JOptionPane.INFORMATION_MESSAGE);
 
 						// TODO Load User info from DB
-						PersistentNavigationBar pnv = new PersistentNavigationBar(container, loggedUser, loggedUser);
+						//PersistentNavigationBar pnv = new PersistentNavigationBar(container, loggedUser, loggedUser);
 
 						// Profile Frame Switch
 						InterfaceHelpers.closeParent(txtUsername);
-						pnv.setVisible(true);
+						//pnv.setVisible(true);
 
 						// Debug
 						// System.out.println("Logged In");
