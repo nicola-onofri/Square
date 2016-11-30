@@ -16,6 +16,7 @@ import javax.swing.JOptionPane;
 
 import pajc.config.NameGenerator;
 import pajc.config.Vars;
+import pajc.square.ui.SharePost;
 
 public class ImageResizer {
 	private Dimension screen;
@@ -25,10 +26,9 @@ public class ImageResizer {
 	private JFrame frame;
 	private JResizer resizer;
 
-
 	public String tmp_img_path = "";
 
-	public ImageResizer(BufferedImage src, String path, String file_ext) {
+	public ImageResizer(BufferedImage src, String path, String file_ext, SharePost sharePost) {
 		screen = Toolkit.getDefaultToolkit().getScreenSize();
 		double img_width = src.getWidth();
 		double img_height = src.getHeight();
@@ -74,16 +74,23 @@ public class ImageResizer {
 				// Crop Confirmation
 				int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm Selection?", "Crop Confirmation",
 						JOptionPane.YES_NO_OPTION);
-				if (dialogResult == JOptionPane.YES_OPTION) {
 
+				if (dialogResult == JOptionPane.YES_OPTION) {
+					// Check this
 					int x = resizer.getX(), y = resizer.getY(), w = resizer.getSize().width, h = resizer.getHeight();
 					BufferedImage dst = src.getSubimage(x, y, w, h);
+					System.out.println("Resizer_x: " + resizer.getX() + "\nResizer_y: " + resizer.getY()
+							+ "\nResizer_w: " + resizer.getWidth() + "\nResizer_h: " + resizer.getHeight());
+					System.out.println("x: " + x + "\ny: " + y + "\nw: " + w + "\nh: " + h);
 
-					// TODO need to pass this file
+					// TODO need to pass this file outside this block
 					String file_name = String.valueOf(NameGenerator.uniqueCurrentTime());
 					String file_path = Vars.avatar_path + "/" + file_name + ".jpg";
+
 					try {
 						if (!tmp_img_path.equals("")) {
+							// Non capisco perchè sia necessario questa
+							// condizione
 							System.out.println("File Overwrite");
 							File old_file = new File(tmp_img_path);
 							old_file.delete();
@@ -92,17 +99,14 @@ public class ImageResizer {
 						} else {
 							ImageIO.write(dst, file_ext, new File(file_path));
 							tmp_img_path = file_path;
-							// User owner, String description, Date date,
-							// ArrayList<String> comments,
-							// ArrayList<User> likes, ImageIcon image
-							// Post newPost = new Post()
 						}
-					} catch (IOException e1) {
-						e1.printStackTrace();
+					} catch (IOException ioe) {
+						ioe.printStackTrace();
 					}
-					System.out.println("cropped and saved");
+					System.out.println("Cropped and Saved");
 
-					// TODO autoclose the frame
+					frame.setVisible(false);
+					frame.dispose();
 				}
 			}
 		});

@@ -8,13 +8,13 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
+import javax.swing.JPanel;
 
 import pajc.config.Layout;
 import pajc.square.model.Post;
 import pajc.square.model.User;
 
-public class FeedUI extends JComponent {
+public class FeedUI extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final int IMAGES_PER_ROW = 2;
 	private SinglePost postView;
@@ -37,9 +37,11 @@ public class FeedUI extends JComponent {
 		System.out.println("Posts: " + posts.size());
 
 		for (int index = 0; index < posts.size(); index++) {
-			postView = new SinglePost(new Rectangle(0, 0, (int)bounds.getWidth(), (int) bounds.getHeight()), posts.get(index), loggedUser);
-			
+			postView = new SinglePost(new Rectangle(0, 0, (int) bounds.getWidth(), (int) bounds.getHeight()),
+					posts.get(index), loggedUser);
+
 			postView.setVisible(true);
+			
 			gbc = new GridBagConstraints();
 			gbc.gridx = previousArraySize % IMAGES_PER_ROW;
 			gbc.gridy = (int) (previousArraySize) / IMAGES_PER_ROW;

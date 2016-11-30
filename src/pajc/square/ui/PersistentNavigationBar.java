@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -56,6 +57,7 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 	private JTextField txtSearchUser;
 	private UserProfile userView;
 	private SinglePost singlePostView;
+	private JScrollPane scrollableFeed;
 
 	protected PropertyChangeSupport changes = new PropertyChangeSupport(this);
 
@@ -149,13 +151,13 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 				navBarVerticalAlignment - Layout.tab_icon_size / 2, Layout.tab_icon_size, Layout.tab_icon_size);
 		add(lblExplore);
 
-		//Test FeedUI
+		// Test FeedUI
 		ArrayList<Post> posts = new ArrayList<>();
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 2; i++) {
 			posts.add(loggedUser.getPosts().get(0));
 		}
 
-		//Change view to FeedUI
+		// Change view to FeedUI
 		lblExplore.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -166,9 +168,20 @@ public class PersistentNavigationBar extends JComponent implements PropertyChang
 							.forEach(c -> {
 								c.setVisible(false);
 								remove(c);
-								c = new FeedUI(contentPane.getBounds(), loggedUser, posts);
-//								c = new SinglePost(contentPane.getBounds(), loggedUser.getPosts().get(0), loggedUser);
-								add(c);
+
+								scrollableFeed = new JScrollPane(c);
+								scrollableFeed.setLocation(0, 0);
+								scrollableFeed.setSize(contentPane.getWidth(), contentPane.getHeight());
+								c = new FeedUI(scrollableFeed.getBounds(), loggedUser, posts);
+								scrollableFeed.setBackground(Color.BLUE);
+								//scrollableFeed.setBorder(null);
+								add(scrollableFeed);
+
+								// c = new FeedUI(contentPane.getBounds(),
+								// loggedUser, posts);
+								//// c = new SinglePost(contentPane.getBounds(),
+								// loggedUser.getPosts().get(0), loggedUser);
+								// add(c);
 							});
 				}
 			}

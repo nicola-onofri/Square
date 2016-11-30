@@ -47,18 +47,14 @@ public class SinglePost extends JPanel {
 		setLayout(null);
 		setBackground(Color.WHITE);
 		setBounds(bounds);
-		// setBounds(getX() + Layout.single_post_pnl_offset, getY() +
-		// Layout.component_margin,
-		// getWidth() - Layout.single_post_pnl_offset * 2, getHeight() -
-		// Layout.component_margin * 2);
-
+		
 		setBounds(getX() + Layout.single_post_pnl_offset, getY() + Layout.component_margin,
 				getWidth() - Layout.single_post_pnl_offset * 2, getWidth() - Layout.single_post_pnl_offset * 2);
 		setBorder(BorderFactory.createMatteBorder(Layout.singlePost_border_size, Layout.singlePost_border_size,
 				Layout.singlePost_border_size, Layout.singlePost_border_size, ColorPalette.light_blue_separator));
 		setBackground(Color.YELLOW);
 
-		//System.out.println("SinglePostView bounds: " + getBounds());
+		System.out.println("SinglePostView bounds: " + getBounds());
 
 		isFollowed = post.getOwner().getFollowers().contains(loggedUser) ? true : false;
 

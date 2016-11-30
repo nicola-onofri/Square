@@ -190,10 +190,9 @@ public class SharePost extends JFrame {
 								String file_extension = FileHelpers.getFileExtension(inputfile.getName());
 								ImageResizer resize = new ImageResizer(in, Vars.avatar_path, file_extension);
 								File outputfile = new File(Vars.avatar_path + inputfile.getName());
+								
 								ImageIO.write(in, "jpg", outputfile);
-
-								// Can't get the cropped file
-								lblImage.setIcon(Layout.getScaledImage(new ImageIcon(in), lblImage.getWidth(),
+								lblImage.setIcon(Layout.getScaledImage(new ImageIcon(outputfile.getPath()), lblImage.getWidth(),
 										lblImage.getHeight()));
 								System.out.println();
 							} else
