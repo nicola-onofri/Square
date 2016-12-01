@@ -45,7 +45,7 @@ public class DropboxAPI {
 	public boolean dbx_delete_file(String filepath) {
 		try {
 			dbx_client.delete(filepath);
-			System.out.println("File deleted: " + filepath);
+			System.out.println("File deleted on dropbox: " + filepath);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

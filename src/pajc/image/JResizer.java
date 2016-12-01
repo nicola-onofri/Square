@@ -129,9 +129,9 @@ class JResizer extends JComponent implements PropertyChangeListener {
 			int frame_height = frame.getHeight();
 			int resizer_size = getWidth();
 
-			System.out.println("Frame Size: " + getWidth() + "x" + getHeight());
-			System.out.println("Get X/Y: " + getX() + "x" + getY());
-			System.out.println("Get dx/dy: " + dx + "x" + dy);
+//			System.out.println("Frame Size: " + getWidth() + "x" + getHeight());
+//			System.out.println("Get X/Y: " + getX() + "x" + getY());
+//			System.out.println("Get dx/dy: " + dx + "x" + dy);
 
 			if (getX() + dx > 0 && getY() + dy > 0 && getX() + resizer_size + dx < frame_width
 					&& getY() + resizer_size + dy < frame_height)

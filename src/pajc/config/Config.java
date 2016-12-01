@@ -1,5 +1,10 @@
 package pajc.config;
 
+import java.sql.Connection;
+import java.sql.Statement;
+
+import pajc.square.logAuth.Database;
+
 public class Config {
 	boolean production;
 	public static String db_port;
@@ -23,9 +28,6 @@ public class Config {
 			Config.db_port = "3306";
 			Config.db_name = "square";
 			Config.db_host = "localhost";
-
-			Config.db_url = "jdbc:mysql://" + Config.db_host + ":" + Config.db_port + "/" + Config.db_name
-					+ "?autoReconnect=true&useSSL=false";
 
 			Config.db_url = "jdbc:mysql://" + Config.db_host + ":" + Config.db_port + "/" + Config.db_name
 					+ "?autoReconnect=true&useSSL=false";
