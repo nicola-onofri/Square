@@ -19,10 +19,10 @@ public class User {
 	private String name;
 	private String about;
 	private ImageIcon profilePicture;
-	private ArrayList<Post> posts;
 	private ArrayList<User> followers;
 	private ArrayList<User> followings;
 	private ArrayList<Notification> notifications;
+	private ArrayList<Post> posts;
 
 	// User Constructor
 	public User(String username, String email, String password, String name, String about, ImageIcon profilePicture,
@@ -62,6 +62,21 @@ public class User {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	// Get Media ID from Path
+	public String getUserID(String username){
+		try {
+			Database db = new Database();
+			Connection conn = db.getConn();
+			Statement stmt = conn.createStatement();
+			ResultSet user = stmt.executeQuery("SELECT * FROM user WHERE username='" + username + "';");
+						
+			if (user.next())
+				return user.getString("id");
+		} 
+		catch (SQLException e) {e.printStackTrace(); }
+		return null;
 	}
 
 	// Getters and Setters

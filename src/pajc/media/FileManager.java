@@ -10,6 +10,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import com.dropbox.core.DbxException;
 
 import pajc.config.Config;
+import pajc.config.Utility;
 import pajc.square.logAuth.Database;
 import pajc.square.logAuth.DropboxAPI;
 
@@ -26,38 +27,34 @@ public class FileManager {
 		DropboxAPI dbx_api = new DropboxAPI();  this.dbx_api = dbx_api;
 	}
 	
-	// Unique Timestamp Generator
-	private static final AtomicLong LAST_TIME_MS = new AtomicLong();
-	public static long uniqueCurrentTimeMS() {
-	    long now = System.currentTimeMillis();
-	    while(true) {
-	        long lastTime = LAST_TIME_MS.get();
-	        if (lastTime >= now)
-	            now = lastTime+1;
-	        if (LAST_TIME_MS.compareAndSet(lastTime, now))
-	            return now;
-	    }
-	}
-	
 	// Upload Image (Dropbox + Database)
-	public void uploadImage(String filename, String upload_path) throws SQLException, DbxException, IOException{
+	public int uploadImage(int user_id, String filename, String upload_path) throws SQLException, DbxException, IOException{
+		
 		// Upload file to dropbox
 		boolean dbx_up = dbx_api.dbx_upload_file(filename, upload_path);
+		int insert_id = -1;
 		
 		// If Upload is successful insert query to db
 		if(dbx_up){
-			Statement stmt = conn.createStatement();
-			String query = "INSERT INTO media VALUES (null,'" + filename + "','" + upload_path +"');";
-			stmt.executeUpdate(query);
+			try {
+				Statement stmt = conn.createStatement();
+				String query = "INSERT INTO media VALUES (null,'" + user_id + "','" + upload_path +"');";
+				stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+				
+				// Get Last Generated Key
+				insert_id = Database.getLastInsertkey(stmt);
+			}
+			catch (SQLException e) {e.printStackTrace(); }	
 		}
+		
+		return insert_id;
 	}
-	
+
 	// Delete Image (Dropbox + Database)
 	public void deleteImage(String filepath) throws SQLException, DbxException, IOException{
 		// Delete file to dropbox
-		//boolean dbx_delete = dbx_api.dbx_delete_file(filepath);
-		
-		boolean dbx_delete = true;
+		boolean dbx_delete = dbx_api.dbx_delete_file(filepath);
+		//boolean dbx_delete = true;
 		
 		// Database Row Deletion
 		if(dbx_delete){
@@ -75,17 +72,42 @@ public class FileManager {
 		}
 	}
 	
+	// Get Media ID from Path
+	public String getMediaID(String filepath){
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet media = stmt.executeQuery("SELECT * FROM media WHERE path='" + filepath + "';");
+						
+			if (media.next())
+				return media.getString("id");
+		} 
+		catch (SQLException e) {e.printStackTrace(); }
+		return null;
+	}
+	
+	// Get Media Path from ID
+	public String getMediaPath(String media_id) {
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet media = stmt.executeQuery("SELECT * FROM media WHERE id='" + media_id + "';");
+						
+			if (media.next()){
+				return media.getString("path");
+			}
+		} 
+		catch (SQLException e) {e.printStackTrace(); }
+		return null;
+	}
+	
 	public static void main(String[] args) throws IOException, DbxException, SQLException {
 		
 		// Temp config init
 		Config config = new Config(false);
 		
 		FileManager fm = new FileManager();
-		String filename = String.valueOf(uniqueCurrentTimeMS());
-		//fm.uploadImage("media/2.jpg", "/media/"+filename+".jpg");
-		
-		fm.deleteImage("/media/1475832125309.jpg");
-			
+//		String filename = 
+//		fm.uploadImage(1,"media/2.jpg", "/media/"+filename+".jpg");
+//		fm.deleteImage("/media/"+filename+".jpg");
 	}
 	
 }

@@ -158,8 +158,8 @@ public class SharePost extends JFrame {
 			}
 		});
 
-		// Search Button
-		btnSearch = new JButton("Search");
+		// Upload Button
+		btnSearch = new JButton("Upload");
 		btnSearch.grabFocus();
 		btnSearch.setFont(new Font("Droid Sans", Font.PLAIN, 13));
 		btnSearch.setBounds(getWidth() / 2 + Layout.component_margin / 2, btnSubmit.getY(), btnSubmit.getWidth(),
@@ -174,34 +174,36 @@ public class SharePost extends JFrame {
 				Object[] options = { "Upload Image", "Webcam Capture" };
 				int response = JOptionPane.showOptionDialog(null, "Select image src", "Image Chooser",
 						JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, options[0]);
-
+				
 				if (response == 0) {
 					try {
-						int upload = fileChooser.showOpenDialog(null);
+						int upload = fileChooser.showOpenDialog(SharePost.this);
 
 						// Filter Images
-						fileChooser
-								.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg"));
+						FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg");
+						//fileChooser.setFileFilter(filter);
 
 						if (upload == JFileChooser.APPROVE_OPTION) {
 							File inputfile = fileChooser.getSelectedFile();
 							BufferedImage in = ImageIO.read(inputfile);
 							if (in != null) {
+								
+								// Get File Extension
 								String file_extension = FileHelpers.getFileExtension(inputfile.getName());
-								ImageResizer resize = new ImageResizer(in, Vars.avatar_path, file_extension);
-								File outputfile = new File(Vars.avatar_path + inputfile.getName());
-								ImageIO.write(in, "jpg", outputfile);
-
-								// Can't get the cropped file
-								lblImage.setIcon(Layout.getScaledImage(new ImageIcon(in), lblImage.getWidth(),
-										lblImage.getHeight()));
-								System.out.println();
+								
+								// Image Crop
+								ImageResizer resize = new ImageResizer(in, Vars.media_temp_path, file_extension);
+								
+								// Save Output To Temp File
+								String output_filename = Vars.media_temp_path + inputfile.getName();
+								File outputfile = new File(output_filename);
+								lblImage.setIcon(Layout.getScaledImage(new ImageIcon(output_filename), lblImage.getWidth(), lblImage.getHeight()));
+								System.out.println(output_filename);
 							} else
-								JOptionPane.showMessageDialog(null, Vars.warning_file_format, "Validation Error",
-										JOptionPane.WARNING_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Formato dell'immagine non valido!",
+										"Validation Error", JOptionPane.WARNING_MESSAGE);
 						}
-					} catch (Exception ex) {
-					}
+					} catch (Exception ex) { ex.printStackTrace(); }
 				}
 				// Webcam Image Capture
 				else if (response == 1) {

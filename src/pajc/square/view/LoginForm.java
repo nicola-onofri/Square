@@ -140,11 +140,11 @@ public class LoginForm extends JPanel {
 								JOptionPane.INFORMATION_MESSAGE);
 
 						// TODO Load User info from DB
-						PersistentNavigationBar pnv = new PersistentNavigationBar(container, loggedUser, loggedUser);
+						//PersistentNavigationBar pnv = new PersistentNavigationBar(container, loggedUser, loggedUser);
 
 						// Profile Frame Switch
 						InterfaceHelpers.closeParent(txtUsername);
-						pnv.setVisible(true);
+//						pnv.setVisible(true);
 
 						// Debug
 						// System.out.println("Logged In");

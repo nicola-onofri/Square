@@ -76,7 +76,7 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		// App Configuration
-		Config config = new Config(true);
+		Config config = new Config(false);
 
 		// Appearance Settings
 		FontSettings.setUIFont(new Font("Droid Sans", Font.PLAIN, 13));

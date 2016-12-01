@@ -145,11 +145,11 @@ public class LoginForm extends JPanel {
 
 						System.out.println(logged_user.toString());
 
-						UserProfile profile = new UserProfile(container, null, logged_user, logged_user);
+						//UserProfile profile = new UserProfile(container, null, logged_user, logged_user);
 
 						// Profile Frame Switch
 						InterfaceHelpers.closeParent(txtUsername);
-						profile.setVisible(true);
+						//profile.setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Attenzione! Username o Password errati! Riprova!",
 								"Errore di Validazione", JOptionPane.WARNING_MESSAGE);

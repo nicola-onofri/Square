@@ -64,7 +64,7 @@ public class AvatarUpload extends JPanel {
 							BufferedImage in = ImageIO.read(inputfile);
 							if (in != null) {
 								String file_extension = FileHelpers.getFileExtension(inputfile.getName());
-								ImageResizer resize = new ImageResizer(in, Vars.avatar_path, file_extension);
+								ImageResizer resize = new ImageResizer(in, Vars.media_temp_path, file_extension);
 //								File outputfile = new File(Vars.AVATAR_PATH + inputfile.getName());
 //								ImageIO.write(in, "jpg", outputfile);
 							} else

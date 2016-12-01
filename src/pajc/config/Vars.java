@@ -12,10 +12,12 @@ public class Vars {
 
 	// Paths
 	public static final String icon_path = "res/icons/";
-	public static final String media_path = "media/img/";
-	public static final String avatar_path = "media/avatar/";
-	public static final String thumbnails_path = "media/img/";
+	public static final String media_path = "/media/";
+	public static String media_temp_path = "media/temp/";
 	public static final String post_path = "res/img/";
+	
+	// Extension
+	public static final String JPG = ".jpg";
 
 	// Values
 	public static final int input_opacity = 85;

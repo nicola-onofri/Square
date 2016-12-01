@@ -14,7 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import pajc.config.NameGenerator;
+import pajc.config.FileHelpers;
 import pajc.config.Vars;
 
 public class ImageResizer {
@@ -24,6 +24,7 @@ public class ImageResizer {
 	private JButton btn_crop;
 	private JFrame frame;
 	private JResizer resizer;
+	public BufferedImage cropped_img;
 
 
 	public String tmp_img_path = "";
@@ -69,6 +70,7 @@ public class ImageResizer {
 		// Crop Button
 		btn_crop = new JButton("Crop");
 		btn_crop.addActionListener(new ActionListener() {
+
 			public void actionPerformed(ActionEvent e) {
 
 				// Crop Confirmation
@@ -76,37 +78,45 @@ public class ImageResizer {
 						JOptionPane.YES_NO_OPTION);
 				if (dialogResult == JOptionPane.YES_OPTION) {
 
-					int x = resizer.getX(), y = resizer.getY(), w = resizer.getSize().width, h = resizer.getHeight();
+					int x = resizer.getX(), y = resizer.getY(), w = resizer.getWidth(), h = resizer.getHeight();					
+					//System.out.println(x + "x" + y + "x" + w + "x" + h);
 					BufferedImage dst = src.getSubimage(x, y, w, h);
-
-					// TODO need to pass this file
-					String file_name = String.valueOf(NameGenerator.uniqueCurrentTime());
-					String file_path = Vars.avatar_path + "/" + file_name + ".jpg";
-					try {
-						if (!tmp_img_path.equals("")) {
-							System.out.println("File Overwrite");
-							File old_file = new File(tmp_img_path);
-							old_file.delete();
-							ImageIO.write(dst, file_ext, new File(file_path));
-							tmp_img_path = file_path;
-						} else {
-							ImageIO.write(dst, file_ext, new File(file_path));
-							tmp_img_path = file_path;
-							// User owner, String description, Date date,
-							// ArrayList<String> comments,
-							// ArrayList<User> likes, ImageIcon image
-							// Post newPost = new Post()
-						}
-					} catch (IOException e1) {
-						e1.printStackTrace();
-					}
+					// TODO: fire dell'evento ec
+					//this.cropped_img = dst;
 					System.out.println("cropped and saved");
 
-					// TODO autoclose the frame
 				}
 			}
 		});
 		btn_crop.setBounds(frame.getWidth() - 120, frame.getHeight() - 60, 100, 25);
 		frame.getContentPane().add(btn_crop);
 	}
+
+	
+//	String file_name = FileHelpers.getUniqueFileName();
+//	String file_path = Vars.media_temp_path + "/" + file_name + ".jpg";
+//	try {
+//		if (!tmp_img_path.equals("")) {
+//			File old_file = new File(tmp_img_path);
+//			old_file.delete();
+//			ImageIO.write(dst, file_ext, new File(file_path));
+//			tmp_img_path = file_path;
+//		} else {
+//			ImageIO.write(dst, file_ext, new File(file_path));
+//			tmp_img_path = file_path;
+//		}
+//	} catch (IOException e1) {
+//		e1.printStackTrace();
+//	}
+	
+	
+	// Getters and Setters
+	public BufferedImage getCropped_img() {
+		return cropped_img;
+	}
+
+	public void setCropped_img(BufferedImage cropped_img) {
+		this.cropped_img = cropped_img;
+	}
+	
 }
