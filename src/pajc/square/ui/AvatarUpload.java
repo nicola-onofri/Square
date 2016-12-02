@@ -64,9 +64,10 @@ public class AvatarUpload extends JPanel {
 							BufferedImage in = ImageIO.read(inputfile);
 							if (in != null) {
 								String file_extension = FileHelpers.getFileExtension(inputfile.getName());
-								ImageResizer resize = new ImageResizer(in, Vars.avatar_path, file_extension);
-//								File outputfile = new File(Vars.AVATAR_PATH + inputfile.getName());
-//								ImageIO.write(in, "jpg", outputfile);
+								ImageResizer resize = new ImageResizer(in, Vars.media_temp_path, file_extension);
+								// File outputfile = new File(Vars.AVATAR_PATH +
+								// inputfile.getName());
+								// ImageIO.write(in, "jpg", outputfile);
 							} else
 								JOptionPane.showMessageDialog(null, "Formato dell'immagine non valido!",
 										"Validation Error", JOptionPane.WARNING_MESSAGE);
@@ -96,10 +97,12 @@ public class AvatarUpload extends JPanel {
 		});
 
 		// add(fileChooser);
-//		ImageIcon avatar_img = RoundedImage.newRoundedImage("res/polina_profile.jpg");
-//		JLabel label = new JLabel(RoundedImage.newRoundedImage("res/polina_profile.jpg"));
-//		label.setBounds(this.getWidth() / 2, this.getWidth() / 2, this.getWidth(), this.getHeight());
+		// ImageIcon avatar_img =
+		// RoundedImage.newRoundedImage("res/polina_profile.jpg");
+		// JLabel label = new
+		// JLabel(RoundedImage.newRoundedImage("res/polina_profile.jpg"));
+		// label.setBounds(this.getWidth() / 2, this.getWidth() / 2,
+		// this.getWidth(), this.getHeight());
 		// add(label);
 	}
-
 }

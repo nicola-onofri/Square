@@ -13,7 +13,7 @@ public class Vars {
 	// Paths
 	public static final String icon_path = "res/icons/";
 	public static final String media_path = "/media/";
-	public static String media_temp_path = "media/temp/";
+	public static final String media_temp_path = "media/temp/";
 	public static final String post_path = "res/img/";
 	
 	// Extension

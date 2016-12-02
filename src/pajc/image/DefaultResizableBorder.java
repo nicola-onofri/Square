@@ -65,7 +65,9 @@ public class DefaultResizableBorder implements ResizableBorder {
 
 		if (!bounds.contains(me.getPoint()))
 			return Cursor.DEFAULT_CURSOR;
+
 		Rectangle actualBounds = new Rectangle(dist, dist, w - 2 * dist, h - 2 * dist);
+		
 		if (actualBounds.contains(me.getPoint()))
 			return Cursor.DEFAULT_CURSOR;
 

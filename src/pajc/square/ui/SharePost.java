@@ -6,6 +6,8 @@ import java.awt.Insets;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -39,10 +41,11 @@ import pajc.square.model.Post;
 import pajc.square.model.User;
 
 //Share post page
-public class SharePost extends JFrame {
+public class SharePost extends JFrame implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
 	private JButton btnSubmit;
 	private JButton btnSearch;
+	private JFileChooser fileChooser;
 	private JLabel lblMask;
 	private JLabel lblProfile;
 	private JLabel lblUsername;
@@ -52,9 +55,11 @@ public class SharePost extends JFrame {
 	private JSeparator jsHeader;
 	private JSeparator jsFooter;
 	private JTextArea txtCaption;
+	private ImageResizer img_resizer;
 
 	public SharePost(User loggedUser) {
 		setTitle("New Post");
+
 		// TODO magic numbers
 		setSize(360, 593);
 		setResizable(false);
@@ -158,15 +163,15 @@ public class SharePost extends JFrame {
 			}
 		});
 
-		// Search Button
-		btnSearch = new JButton("Search");
+		// Upload Button
+		btnSearch = new JButton("Upload");
 		btnSearch.grabFocus();
 		btnSearch.setFont(new Font("Droid Sans", Font.PLAIN, 13));
 		btnSearch.setBounds(getWidth() / 2 + Layout.component_margin / 2, btnSubmit.getY(), btnSubmit.getWidth(),
 				Layout.button_default_height);
 		pnlFooter.add(btnSearch);
 
-		JFileChooser fileChooser = new JFileChooser();
+		fileChooser = new JFileChooser();
 
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
@@ -177,29 +182,40 @@ public class SharePost extends JFrame {
 
 				if (response == 0) {
 					try {
-						int upload = fileChooser.showOpenDialog(null);
+						int upload = fileChooser.showOpenDialog(SharePost.this);
 
 						// Filter Images
-						fileChooser
-								.setFileFilter(new FileNameExtensionFilter("Image Files", "jpg", "png", "gif", "jpeg"));
+						FileNameExtensionFilter filter = new FileNameExtensionFilter("Image Files", "jpg", "jpeg");
+						// fileChooser.setFileFilter(filter);
 
 						if (upload == JFileChooser.APPROVE_OPTION) {
 							File inputfile = fileChooser.getSelectedFile();
 							BufferedImage in = ImageIO.read(inputfile);
 							if (in != null) {
+
+								// Get File Extension
 								String file_extension = FileHelpers.getFileExtension(inputfile.getName());
-								ImageResizer resize = new ImageResizer(in, Vars.avatar_path, file_extension);
-								File outputfile = new File(Vars.avatar_path + inputfile.getName());
-								
-								ImageIO.write(in, "jpg", outputfile);
-								lblImage.setIcon(Layout.getScaledImage(new ImageIcon(outputfile.getPath()), lblImage.getWidth(),
-										lblImage.getHeight()));
-								System.out.println();
+
+								// Image Crop
+								ImageResizer img_resizer = new ImageResizer(in, Vars.media_temp_path, file_extension);
+								// ISSUE: we're still in the wrong place, inside a
+								// MouseAdapter
+								// resize.addPropertyChangeListener(this);
+
+								// Save Output To Temp File
+								String output_filename = Vars.media_temp_path + inputfile.getName();
+								File outputfile = new File(output_filename);
+
+								lblImage.setIcon(Layout.getScaledImage(new ImageIcon(output_filename),
+										lblImage.getWidth(), lblImage.getHeight()));
+
+								// System.out.println(output_filename);
 							} else
-								JOptionPane.showMessageDialog(null, Vars.warning_file_format, "Validation Error",
-										JOptionPane.WARNING_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Formato dell'immagine non valido!",
+										"Validation Error", JOptionPane.WARNING_MESSAGE);
 						}
 					} catch (Exception ex) {
+						ex.printStackTrace();
 					}
 				}
 				// Webcam Image Capture
@@ -222,5 +238,11 @@ public class SharePost extends JFrame {
 				}
 			}
 		});
+	}
+
+	// Update lblImage if crop is successful
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		lblImage.setIcon((ImageIcon) evt.getNewValue());
 	}
 }

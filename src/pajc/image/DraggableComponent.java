@@ -28,8 +28,6 @@ public class DraggableComponent extends JComponent {
 		addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent pressEvt) {
-				// Distance between the mouseEvent & the initial location of the
-				// border (parent component)
 				deltaMouseX = pressEvt.getXOnScreen() - getParent().getX();
 				deltaMouseY = pressEvt.getYOnScreen() - getParent().getY();
 				setCursor(Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR));

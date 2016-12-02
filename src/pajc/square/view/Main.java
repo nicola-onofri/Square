@@ -16,6 +16,7 @@ import pajc.config.Layout;
 import pajc.config.Vars;
 import pajc.square.model.Post;
 import pajc.square.model.User;
+import pajc.square.ui.PersistentNavigationBar;
 
 public class Main {
 	private JFrame frame;
@@ -55,7 +56,7 @@ public class Main {
 		frame.setLocation(Layout.dim.width / 2 - frame.getSize().width / 2,
 				Layout.dim.height / 2 - frame.getSize().height / 2);
 
-		System.out.println("External frame size: " + frame.getBounds());
+		// System.out.println("External frame size: " + frame.getBounds());
 		User loggedUser = new User("kyliejenner", "queenkylie@xoxo.com", "xoxo", "Kylie Jenner", "Simply you queen",
 				new ImageIcon(Vars.post_path + "kylie_4.png"), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),
 				new ArrayList<>());
